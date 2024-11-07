@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5" /* 编译目标 */,
+    "module": "commonjs" /* 项目模块类型 */,
+    "lib": ["ES2018", "DOM"],
+    "allowJs": true /* 是否允许js代码 */,
+    "checkJs": true /* 检查js代码错误 */,
+    "declaration": true /* 自动创建声明文件(.d.ts) */,
+    "declarationDir": "./lib" /* 声明文件目录 */,
+    "sourceMap": true /* 自动生成sourcemap文件 */,
+    "outDir": "lib" /* 编译输出目录 */,
+    "rootDir": "./src" /* 项目源码根目录，用来控制编译输出的目录结构 */,
+    "strict": true /* 启用严格模式 */
+  },
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules", "lib"]
+}
