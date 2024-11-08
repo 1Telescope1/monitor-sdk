@@ -25,7 +25,8 @@ module.exports = [
         PerformanceEntry: "readonly",
         PerformanceObserverEntryList: "readonly",
         document: "readonly",
-        PerformanceResourceTiming: "readonly"
+        PerformanceResourceTiming: "readonly",
+        performance: 'readonly'
       }
     },
     // env: {
