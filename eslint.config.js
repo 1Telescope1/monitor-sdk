@@ -23,7 +23,9 @@ module.exports = [
         console: "readonly",
         PerformanceObserver: "readonly",
         PerformanceEntry: "readonly",
-        PerformanceObserverEntryList: "readonly"
+        PerformanceObserverEntryList: "readonly",
+        document: "readonly",
+        PerformanceResourceTiming: "readonly"
       }
     },
     // env: {
