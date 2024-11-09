@@ -27,7 +27,11 @@ module.exports = [
         document: "readonly",
         PerformanceResourceTiming: "readonly",
         performance: "readonly",
-        XMLHttpRequest: 'readonly'
+        XMLHttpRequest: "readonly",
+        URL: "readonly",
+        Request: "readonly",
+        RequestInit: "readonly",
+        Response: "readonly"
       }
     },
     // env: {
