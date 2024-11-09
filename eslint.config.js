@@ -31,13 +31,16 @@ module.exports = [
         URL: "readonly",
         Request: "readonly",
         RequestInit: "readonly",
-        Response: "readonly"
+        Response: "readonly",
+        Event: "readonly",
+        HTMLScriptElement: "readonly",
+        HTMLImageElement: "readonly",
+        HTMLScriptElement: "readonly",
+        HTMLImageElement: "readonly",
+        HTMLLinkElement: "readonly",
+        PromiseRejectionEvent: "readonly"
       }
     },
-    // env: {
-    //   browser: true, // 启用浏览器环境的全局变量
-    //   node: true // 启用 Node.js 环境的全局变量
-    // },
     plugins: {
       "@typescript-eslint": tsPlugin, // 启用 TypeScript ESLint 插件
       prettier: prettierPlugin // 启用 Prettier 插件
