@@ -26,7 +26,8 @@ module.exports = [
         PerformanceObserverEntryList: "readonly",
         document: "readonly",
         PerformanceResourceTiming: "readonly",
-        performance: 'readonly'
+        performance: "readonly",
+        XMLHttpRequest: 'readonly'
       }
     },
     // env: {
