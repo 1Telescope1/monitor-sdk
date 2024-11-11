@@ -73,7 +73,7 @@ module.exports = [
       "array-callback-return": "error", // 确保数组方法中的回调函数有返回值
       "no-duplicate-imports": "error", // 禁止重复导入相同模块
       "no-multi-spaces": "error", // 禁止多个空格
-      "space-before-function-paren": ["error", "never"], // 函数括号前不允许有空格
+      // "space-before-function-paren": ["error", "never"], // 函数括号前不允许有空格
       "comma-dangle": ["error", "never"] // 禁止使用拖尾逗号
     }
   }
