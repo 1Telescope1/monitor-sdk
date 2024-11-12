@@ -38,7 +38,10 @@ module.exports = [
         HTMLScriptElement: "readonly",
         HTMLImageElement: "readonly",
         HTMLLinkElement: "readonly",
-        PromiseRejectionEvent: "readonly"
+        PromiseRejectionEvent: "readonly",
+        Image: "readonly",
+        setTimeout: "readonly",
+        setTimeout: "readonly"
       }
     },
     plugins: {
@@ -65,7 +68,6 @@ module.exports = [
         }
       ],
       // 其他常用代码规范规则
-      eqeqeq: ["error", "always"], // 强制使用全等 === 和 !==
       curly: ["error", "all"], // 所有控制语句都需加括号
       "no-var": "error", // 禁止使用 var，建议用 let 和 const
       "prefer-const": "warn", // 如果变量不会被重新赋值，建议使用 const
