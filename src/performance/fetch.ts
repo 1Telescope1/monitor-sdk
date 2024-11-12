@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 const originalFetch: typeof window.fetch = window.fetch
 
 function overwriteFetch(): void {
@@ -28,6 +30,7 @@ function overwriteFetch(): void {
         reportData.status = res.status
         reportData.success = res.ok
         // todo 上报数据
+        report(reportData)
         return res
       })
       .catch(err => {
@@ -37,7 +40,7 @@ function overwriteFetch(): void {
         reportData.status = 0
         reportData.success = false
         // todo 上报数据
-
+        report(reportData)
         // Rethrow the error
         throw err
       })

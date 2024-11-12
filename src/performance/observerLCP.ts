@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function observerLCP() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
     if (observer) {
@@ -13,6 +15,7 @@ export default function observerLCP() {
         pageUrl: window.location.href
       }
       // 发送数据 todo;
+      report(reportData)
     }
   }
   // 统计和计算lcp的时间

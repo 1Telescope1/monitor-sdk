@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function observerEntries() {
   if (document.readyState === 'complete') {
     observerEvent()
@@ -33,6 +35,7 @@ export function observerEvent() {
         startTime: resourceEntry.startTime // 资源开始加载的时间
       }
       // 这里可以将 reportData 发送到服务器或者做其他处理
+      report(reportData)
       // console.log(reportData);
     }
   }

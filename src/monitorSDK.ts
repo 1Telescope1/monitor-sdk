@@ -1,3 +1,5 @@
+import { report } from './common/report'
+
 const monitorSDK = {
   vue: false,
   react: false
@@ -21,6 +23,7 @@ export function install(Vue, options) {
       startTime: window.performance.now(),
       pageURL: window.location.href
     }
+    report(reportData)
     if (handler) {
       handler.call(this, err, vm, info)
     }
@@ -41,6 +44,7 @@ export function errorBoundary(err, info) {
     startTime: window.performance.now(),
     pageURL: window.location.href
   }
+  report(reportData)
 }
 
 export default {

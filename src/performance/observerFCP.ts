@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function observerFCP() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
     for (const entry of list.getEntries()) {
@@ -12,6 +14,7 @@ export default function observerFCP() {
           pageUrl: window.location.href
         }
         // 发送数据 todo;
+        report(reportData)
       }
     }
   }

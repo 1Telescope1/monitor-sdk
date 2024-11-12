@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function observerPaint() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
     for (const entry of list.getEntries()) {
@@ -15,6 +17,7 @@ export default function observerPaint() {
         }
 
         // 发送数据 todo;
+        report(reportData)
       }
     }
   }

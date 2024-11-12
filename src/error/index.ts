@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function error() {
   // 捕获资源加载失败的错误： js css  img
   // @ts-ignore
@@ -41,6 +43,7 @@ export default function error() {
       startTime: performance.now()
     }
     // todo 发送错误信息
+    report(reportData)
   }
   // 捕获promise错误  asyn await
   window.addEventListener(
@@ -54,6 +57,7 @@ export default function error() {
         startTime: e.timeStamp
       }
       // todo 发送错误信息
+      report(reportData)
     },
     true
   )

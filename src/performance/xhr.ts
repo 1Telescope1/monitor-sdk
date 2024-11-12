@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export const originalProto = XMLHttpRequest.prototype
 export const originalSend = originalProto.send
 export const originalOpen = originalProto.open
@@ -26,6 +28,7 @@ function overwriteOpenAndSend() {
         subType: 'xhr'
       }
       // todo 发送数据
+      report(reportData)
       this.removeEventListener('loadend', onLoaded, true)
     }
     this.addEventListener('loadend', onLoaded, true)
