@@ -41,7 +41,8 @@ module.exports = [
         PromiseRejectionEvent: "readonly",
         Image: "readonly",
         setTimeout: "readonly",
-        setTimeout: "readonly"
+        setTimeout: "readonly",
+        HTMLElement: "readonly"
       }
     },
     plugins: {
