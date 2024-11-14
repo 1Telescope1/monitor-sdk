@@ -10,14 +10,14 @@ const monitorSDK = {
 }
 
 // 针对Vue项目的错误捕获
-export function install(Vue, options) {
+export function install(Vue: any, options: any) {
   if (monitorSDK.vue) {
     return
   }
   monitorSDK.vue = true
   const handler = Vue.config.errorHandler
   // vue项目中 通过 Vue.config.errorHandler 捕获错误
-  Vue.config.errorHandler = function (err, vm, info) {
+  Vue.config.errorHandler = function (err: Error, vm: any, info: string) {
     // todo: 上报具体的错误信息
     const reportData = {
       info,
@@ -34,7 +34,7 @@ export function install(Vue, options) {
   }
 }
 // 针对React项目的错误捕获
-export function errorBoundary(err, info) {
+export function errorBoundary(err: Error, info: string) {
   if (monitorSDK.react) {
     return
   }
@@ -52,7 +52,7 @@ export function errorBoundary(err, info) {
 }
 
 export function init(options: ConfigType) {
-  setConfig(options);
+  setConfig(options)
   // performance();
   // error();
   // behavior();

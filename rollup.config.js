@@ -5,7 +5,7 @@ const { terser } = require("rollup-plugin-terser")
 
 module.exports = [
   {
-    input: "./src/index.ts",
+    input: "./src/monitorSDK.ts",
     output: [
       {
         dir: "lib",
@@ -28,6 +28,6 @@ module.exports = [
         plugins: [terser()]
       }
     ],
-    plugins: [resolve(), commonjs(), typescript({ module: "ESNext" })]
+    plugins: [typescript({ module: "ESNext" }), commonjs(), resolve()]
   }
 ]

@@ -12,6 +12,6 @@
     "rootDir": "./src" /* 项目源码根目录，用来控制编译输出的目录结构 */,
     "strict": true /* 启用严格模式 */
   },
-  "include": ["src/index.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib"]
 }

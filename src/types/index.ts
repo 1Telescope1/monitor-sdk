@@ -5,4 +5,5 @@ export type ConfigType = {
   userId: string
   isImageUpload: boolean
   batchSize: number
+  [key: string]: string | boolean | number // 添加索引签名
 }

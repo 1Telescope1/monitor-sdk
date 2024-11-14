@@ -42,7 +42,9 @@ module.exports = [
         Image: "readonly",
         setTimeout: "readonly",
         setTimeout: "readonly",
-        HTMLElement: "readonly"
+        HTMLElement: "readonly",
+        XMLHttpRequestBodyInit: "readonly",
+        Document: "readonly"
       }
     },
     plugins: {

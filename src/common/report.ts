@@ -52,7 +52,7 @@ export function xhrRequest(data: any) {
     window.requestIdleCallback(
       () => {
         const xhr = new XMLHttpRequest()
-        originalOpen.call(xhr, 'post', config.url)
+        originalOpen.call(xhr, 'post', config.url, true)
         originalSend.call(xhr, JSON.stringify(data))
       },
       { timeout: 3000 }
@@ -60,7 +60,7 @@ export function xhrRequest(data: any) {
   } else {
     setTimeout(() => {
       const xhr = new XMLHttpRequest()
-      originalOpen.call(xhr, 'post', config.url)
+      originalOpen.call(xhr, 'post', config.url, true)
       originalSend.call(xhr, JSON.stringify(data))
     })
   }
