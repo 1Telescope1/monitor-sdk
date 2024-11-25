@@ -5,7 +5,7 @@ const { terser } = require("rollup-plugin-terser")
 
 module.exports = [
   {
-    input: "./src/monitorSDK.ts",
+    input: "index.ts",
     output: [
       {
         dir: "lib",
