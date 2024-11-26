@@ -14,8 +14,9 @@ export default function observerEntries() {
 export function observerEvent() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
     const entries = list.getEntries()
-    for (const entry of entries) {
-      const resourceEntry = entry as PerformanceResourceTiming
+    for (let i = 0; i < entries.length; i++) {
+      const resourceEntry = entries[i] as PerformanceResourceTiming
+      if (resourceEntry.initiatorType === 'xmlhttprequest') continue
       const reportData = {
         name: resourceEntry.name, // 资源的名字
         type: 'performance', // 类型
@@ -34,9 +35,9 @@ export function observerEvent() {
         resourceSize: resourceEntry.decodedBodySize, // 资源解压后的大小
         startTime: resourceEntry.startTime // 资源开始加载的时间
       }
-      // 这里可以将 reportData 发送到服务器或者做其他处理
       report(reportData)
-      // console.log(reportData);
+      console.log(reportData);
+      
     }
   }
 

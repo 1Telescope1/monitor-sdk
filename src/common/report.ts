@@ -48,20 +48,21 @@ export function imgRequest(data: any) {
 }
 // 普通ajax发送请求数据
 export function xhrRequest(data: any) {
+  const xhr = new XMLHttpRequest()
+  originalOpen.call(xhr, 'post', config.url, true)
+  // 设置请求头
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  
   if (window.requestIdleCallback) {
     window.requestIdleCallback(
       () => {
-        const xhr = new XMLHttpRequest()
-        originalOpen.call(xhr, 'post', config.url, true)
-        originalSend.call(xhr, JSON.stringify(data))
+        originalSend.call(xhr, data)
       },
       { timeout: 3000 }
     )
   } else {
     setTimeout(() => {
-      const xhr = new XMLHttpRequest()
-      originalOpen.call(xhr, 'post', config.url, true)
-      originalSend.call(xhr, JSON.stringify(data))
+      originalSend.call(xhr, data)
     })
   }
 }
