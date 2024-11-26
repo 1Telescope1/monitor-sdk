@@ -6,7 +6,6 @@ export default function observerFCP() {
       if (entry.name === 'first-contentful-paint') {
         observer.disconnect()
         const json = entry.toJSON()
-        console.log(json)
         const reportData = {
           ...json,
           type: 'performance',

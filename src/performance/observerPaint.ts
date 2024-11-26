@@ -6,8 +6,6 @@ export default function observerPaint() {
       if (entry.name === 'first-paint') {
         observer.disconnect()
         const json = entry.toJSON() as PerformanceEntry
-        console.log(json)
-
         // 定义 reportData 的类型
         const reportData = {
           ...json,

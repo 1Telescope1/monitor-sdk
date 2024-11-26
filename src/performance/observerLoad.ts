@@ -1,3 +1,5 @@
+import { report } from '../common/report'
+
 export default function observePageLoadTime() {
   // 记录页面加载开始的时间
   const startTimestamp = performance.now()
@@ -20,9 +22,6 @@ export default function observePageLoadTime() {
     }
 
     // 发送数据
-    console.log(reportData)
-
-    // 如果需要将数据发送到服务器
-    // sendToServer(reportData);
+    report(reportData)
   })
 }

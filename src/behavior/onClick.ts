@@ -19,8 +19,6 @@ export default function click() {
             height: target.offsetHeight,
             eventType
           }
-          console.log(e.target, reportData)
-
           report(reportData)
         }
       },
