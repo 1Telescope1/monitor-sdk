@@ -29,3 +29,23 @@ export function deepClone(obj: any, hash = new WeakMap()) {
 export function generateUniqueId() {
   return 'id-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9)
 }
+
+export function getPathToElement(element: any) {
+  const path = []
+  let currentElement = element
+
+  while (currentElement.tagName.toLowerCase() !== 'body') {
+    const parentNode = currentElement.parentNode
+    const children = Array.from(parentNode.children)
+    const nodeIndex = children.indexOf(currentElement) + 1
+    const name = `${currentElement.tagName.toLowerCase()}:nth-child(${nodeIndex})`
+    // 将当前元素的标签和其兄弟索引添加到路径数组中
+    path.unshift(name)
+    // 移动到父元素
+    currentElement = parentNode
+  }
+  // 最后添加 body 标签
+  path.unshift('body')
+
+  return path.join(' > ')
+}
