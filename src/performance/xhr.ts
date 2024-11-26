@@ -31,9 +31,10 @@ function overwriteOpenAndSend() {
 
   originalProto.send = function newSend(
     ...args: [Document | XMLHttpRequestBodyInit | null | undefined]
-  ) {
-    this.startTime = Date.now()
-
+  ) {    
+    this.addEventListener('loadstart', () => {
+      this.startTime = Date.now()
+    })
     const onLoaded = () => {
       this.endTime = Date.now()
       this.duration = (this.endTime ?? 0) - (this.startTime ?? 0)

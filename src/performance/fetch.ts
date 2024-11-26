@@ -21,19 +21,13 @@ function overwriteFetch(): void {
       success: false,
       method: config?.method || 'GET'
     }
-
     return originalFetch(url, config)
       .then(res => {
-        const endTime = Date.now()
-        reportData.endTime = endTime
-        reportData.duration = endTime - startTime
-        reportData.status = res.status
-        reportData.success = res.ok
-        // todo 上报数据
-        report(reportData)
         return res
       })
       .catch(err => {
+        throw err
+      }).finally(() => {
         const endTime = Date.now()
         reportData.endTime = endTime
         reportData.duration = endTime - startTime
@@ -41,8 +35,6 @@ function overwriteFetch(): void {
         reportData.success = false
         // todo 上报数据
         report(reportData)
-        // Rethrow the error
-        throw err
       })
   }
 }
