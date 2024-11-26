@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { PaintType } from '../types'
 
 export default function observePageLoadTime() {
   // 记录页面加载开始的时间
@@ -13,14 +14,15 @@ export default function observePageLoadTime() {
     const loadTime = loadTimestamp - startTimestamp
 
     // 构建性能数据对象
-    const reportData = {
+    const reportData: PaintType = {
+      name: '',
+      entryType: 'load',
       type: 'performance',
       subType: 'load',
       pageUrl: window.location.href,
       startTime: startTimestamp,
-      loadTime
+      duration: loadTime
     }
-
     // 发送数据
     report(reportData)
   })

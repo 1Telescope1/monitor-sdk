@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { PerformanceResourceType, reportDataType } from '../types'
 
 export default function observerEntries() {
   if (document.readyState === 'complete') {
@@ -19,10 +20,10 @@ export function observerEvent() {
       if (resourceEntry.initiatorType === 'xmlhttprequest') {
         continue
       }
-      const reportData = {
-        name: resourceEntry.name, // 资源的名字
+      const reportData: PerformanceResourceType = {
         type: 'performance', // 类型
         subType: resourceEntry.entryType, // 类型
+        name: resourceEntry.name, // 资源的名字
         sourceType: resourceEntry.initiatorType, // 资源类型
         duration: resourceEntry.duration, // 加载时间
         dns: resourceEntry.domainLookupEnd - resourceEntry.domainLookupStart, // dns解析时间
@@ -38,7 +39,6 @@ export function observerEvent() {
         startTime: resourceEntry.startTime // 资源开始加载的时间
       }
       report(reportData)
-      console.log(reportData)
     }
   }
 

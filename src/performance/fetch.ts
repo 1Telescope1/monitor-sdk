@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { AjaxType } from '../types'
 
 const originalFetch: typeof window.fetch = window.fetch
 
@@ -10,7 +11,7 @@ function overwriteFetch(): void {
     const startTime = Date.now()
     const urlString =
       typeof url === 'string' ? url : url instanceof URL ? url.href : url.url
-    const reportData = {
+    const reportData: AjaxType = {
       type: 'performance',
       subType: 'fetch',
       url: urlString,
@@ -27,7 +28,8 @@ function overwriteFetch(): void {
       })
       .catch(err => {
         throw err
-      }).finally(() => {
+      })
+      .finally(() => {
         const endTime = Date.now()
         reportData.endTime = endTime
         reportData.duration = endTime - startTime

@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { PaintType } from '../types'
 
 export default function observerPaint() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
@@ -7,10 +8,10 @@ export default function observerPaint() {
         observer.disconnect()
         const json = entry.toJSON() as PerformanceEntry
         // 定义 reportData 的类型
-        const reportData = {
+        const reportData: PaintType = {
           ...json,
           type: 'performance',
-          subType: entry.name,
+          subType: entry.entryType,
           pageUrl: window.location.href
         }
 

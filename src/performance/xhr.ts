@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { AjaxType } from '../types'
 
 export const originalProto = XMLHttpRequest.prototype
 export const originalSend = originalProto.send
@@ -31,7 +32,7 @@ function overwriteOpenAndSend() {
 
   originalProto.send = function newSend(
     ...args: [Document | XMLHttpRequestBodyInit | null | undefined]
-  ) {    
+  ) {
     this.addEventListener('loadstart', () => {
       this.startTime = Date.now()
     })
@@ -39,7 +40,7 @@ function overwriteOpenAndSend() {
       this.endTime = Date.now()
       this.duration = (this.endTime ?? 0) - (this.startTime ?? 0)
       const { url, method, startTime, endTime, duration, status } = this
-      const reportData = {
+      const reportData: AjaxType = {
         status,
         duration,
         startTime,

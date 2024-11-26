@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { PaintType } from '../types'
 
 export default function observerLCP() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
@@ -7,10 +8,10 @@ export default function observerLCP() {
     }
     for (const entry of list.getEntries()) {
       const json = entry.toJSON()
-      const reportData = {
+      const reportData: PaintType = {
         ...json,
         type: 'performance',
-        subType: entry.name,
+        subType: entry.entryType,
         pageUrl: window.location.href
       }
       // 发送数据 todo;

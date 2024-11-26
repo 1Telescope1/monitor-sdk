@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { PaintType } from '../types'
 
 export default function observerFCP() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
@@ -6,10 +7,10 @@ export default function observerFCP() {
       if (entry.name === 'first-contentful-paint') {
         observer.disconnect()
         const json = entry.toJSON()
-        const reportData = {
+        const reportData: PaintType = {
           ...json,
           type: 'performance',
-          subType: entry.name,
+          subType: entry.entryType,
           pageUrl: window.location.href
         }
         // 发送数据 todo;

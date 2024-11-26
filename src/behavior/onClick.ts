@@ -11,11 +11,11 @@ export default function click() {
             // scrollTop: document.documentElement.scrollTop,
             type: 'behavior',
             subType: 'click',
-            target: target.tagName,
+            targetName: target.tagName,
             startTime: e.timeStamp,
             innerHtml: target.innerHTML,
             outerHtml: target.outerHTML,
-            with: target.offsetWidth,
+            width: target.offsetWidth,
             height: target.offsetHeight,
             eventType
           }
