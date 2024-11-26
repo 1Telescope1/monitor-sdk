@@ -16,7 +16,9 @@ export function observerEvent() {
     const entries = list.getEntries()
     for (let i = 0; i < entries.length; i++) {
       const resourceEntry = entries[i] as PerformanceResourceTiming
-      if (resourceEntry.initiatorType === 'xmlhttprequest') continue
+      if (resourceEntry.initiatorType === 'xmlhttprequest') {
+        continue
+      }
       const reportData = {
         name: resourceEntry.name, // 资源的名字
         type: 'performance', // 类型
@@ -36,8 +38,7 @@ export function observerEvent() {
         startTime: resourceEntry.startTime // 资源开始加载的时间
       }
       report(reportData)
-      console.log(reportData);
-      
+      console.log(reportData)
     }
   }
 

@@ -8,7 +8,7 @@ export function isSupportSendBeacon() {
   return 'sendBeacon' in window.navigator
 }
 
-export function report(data: any) {  
+export function report(data: any) {
   if (!config.url) {
     console.error('请设置上传 url 地址')
   }
@@ -51,8 +51,8 @@ export function xhrRequest(data: any) {
   const xhr = new XMLHttpRequest()
   originalOpen.call(xhr, 'post', config.url, true)
   // 设置请求头
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
   if (window.requestIdleCallback) {
     window.requestIdleCallback(
       () => {
