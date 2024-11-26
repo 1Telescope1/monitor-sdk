@@ -8,7 +8,7 @@ export function isSupportSendBeacon() {
   return 'sendBeacon' in window.navigator
 }
 
-export function report(data: any) {
+export function report(data: any) {  
   if (!config.url) {
     console.error('请设置上传 url 地址')
   }
@@ -22,7 +22,7 @@ export function report(data: any) {
   } else {
     // 优先使用 sendBeacon
     // @ts-ignore
-    if (isSupportSendBeacon()) {
+    if (isSupportSendBeacon() && config.isBeaconUpload) {
       beaconRequest(reportData)
     } else {
       xhrRequest(reportData)
