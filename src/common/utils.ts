@@ -90,3 +90,37 @@ export function parseStackFrames(error: Error) {
   }
   return frames.slice(0, STACKTRACE_LIMIT)
 }
+
+// 获取vue报错组件信息
+export const getVueComponentInfo = (vm: any) => {
+  const classifyRE = /(?:^|[-_])(\w)/g
+  const classify = (str: string) =>
+    str.replace(classifyRE, c => c.toUpperCase()).replace(/[-_]/g, '')
+  const ROOT_COMPONENT_NAME = '<Root>'
+  const ANONYMOUS_COMPONENT_NAME = '<Anonymous>'
+  if (!vm) {
+    return {
+      componentName: ANONYMOUS_COMPONENT_NAME,
+      url: ''
+    }
+  }
+  if (vm.$root === vm) {
+    return {
+      componentName: ROOT_COMPONENT_NAME,
+      url: ''
+    }
+  }
+  const options = vm.$options
+  let name = options.name || options._componentTag
+  const file = options.__file
+  if (!name && file) {
+    const match = file.match(/([^/\\]+)\.vue$/)
+    if (match) {
+      name = match[1]
+    }
+  }
+  return {
+    componentName: name ? `<${classify(name)}>` : ANONYMOUS_COMPONENT_NAME,
+    url: file
+  }
+}
