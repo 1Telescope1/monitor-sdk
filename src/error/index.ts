@@ -1,4 +1,6 @@
 import { report } from '../common/report'
+import { getPathToElement } from '../common/utils'
+import { JsErrorType, ResourceErrorType } from '../types'
 
 export default function error() {
   // 捕获资源加载失败的错误： js css  img
@@ -8,39 +10,38 @@ export default function error() {
     (e: any) => {
       // 通过 e.target 确定错误是发生在哪个资源上
       const target = e.target
+      if (target instanceof Window) {
+        return
+      }
       if (target) {
         // 对于图片和脚本，通常有 src 属性；对于样式表是 href 属性
-        // @ts-ignore
-        const url = target?.src || target?.href
-
-        // 这里只针对资源加载错误（如图片、脚本和样式表）进行处理
-        if (url) {
-          const reportData = {
-            type: 'error',
-            subType: 'resource',
-            url,
-            html: target.outerHTML, // 触发错误的元素的 HTML
-            pageUrl: window.location.href
-          }
-
-          console.log('Resource Error:', reportData)
+        const src = target?.src || target?.href
+        const path = getPathToElement(target)
+        const reportData: ResourceErrorType = {
+          type: 'error',
+          subType: 'resource',
+          src,
+          pageUrl: window.location.href,
+          tagName: target.tagName,
+          path
         }
+        report(reportData)
+        console.error('Resource Error:', reportData)
       }
     },
     true
   )
   // 捕获js错误
-  window.onerror = (msg, url, lineNo, columnNo, error) => {
-    const reportData = {
+  window.onerror = async (msg, src, lineNo, columnNo, error) => {
+    const reportData: JsErrorType = {
       type: 'error',
       subType: 'js',
       msg,
-      url,
+      src,
       lineNo,
       columnNo,
       stack: error?.stack,
-      pageUrl: window.location.href,
-      startTime: performance.now()
+      pageUrl: window.location.href
     }
     // todo 发送错误信息
     report(reportData)

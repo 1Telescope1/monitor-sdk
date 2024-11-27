@@ -104,3 +104,19 @@ export type PerformanceResourceType = commonType & {
   /** 类型，通常用于描述性能记录的类型，如 "performance" */
   type: string
 }
+
+export type ResourceErrorType = commonType & {
+  src: string // 资源路径
+  pageUrl: string // 页面路径
+  tagName: string // 标签名
+  path: string // 节点路径
+}
+
+export type JsErrorType = commonType & {
+  msg: string | Event // 错误信息
+  src?: string // 资源路径，打包后到路径
+  lineNo?: number // 错误行号
+  columnNo?: number // 错误列号
+  stack?: string // 包含错误的详细信息的 Error 对象
+  pageUrl: string // 页面路径
+}

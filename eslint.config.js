@@ -44,7 +44,8 @@ module.exports = [
         setTimeout: "readonly",
         HTMLElement: "readonly",
         XMLHttpRequestBodyInit: "readonly",
-        Document: "readonly"
+        Document: "readonly",
+        Window: "readonly"
       }
     },
     plugins: {
