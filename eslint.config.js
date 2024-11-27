@@ -45,7 +45,8 @@ module.exports = [
         HTMLElement: "readonly",
         XMLHttpRequestBodyInit: "readonly",
         Document: "readonly",
-        Window: "readonly"
+        Window: "readonly",
+        ErrorEvent: "readonly"
       }
     },
     plugins: {
