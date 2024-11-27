@@ -117,6 +117,12 @@ export type JsErrorType = commonType & {
   src?: string // 资源路径，打包后到路径
   lineNo?: number // 错误行号
   columnNo?: number // 错误列号
-  stack?: string // 包含错误的详细信息的 Error 对象
+  stack?: any[] // 错误堆栈
+  pageUrl: string // 页面路径
+}
+
+export type PromiseErrorType = commonType & {
+  msg: string | Event // 错误信息
+  stack?: any[] // 错误堆栈
   pageUrl: string // 页面路径
 }

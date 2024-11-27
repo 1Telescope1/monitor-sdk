@@ -1,10 +1,9 @@
 import { report } from '../common/report'
-import { getPathToElement } from '../common/utils'
-import { JsErrorType, ResourceErrorType } from '../types'
+import { getPathToElement, parseStackFrames } from '../common/utils'
+import { JsErrorType, PromiseErrorType, ResourceErrorType } from '../types'
 
 export default function error() {
   // 捕获资源加载失败的错误： js css  img
-  // @ts-ignore
   window.addEventListener(
     'error',
     (e: any) => {
@@ -33,6 +32,7 @@ export default function error() {
   )
   // 捕获js错误
   window.onerror = async (msg, src, lineNo, columnNo, error) => {
+    const stack = parseStackFrames(error as Error)
     const reportData: JsErrorType = {
       type: 'error',
       subType: 'js',
@@ -40,7 +40,7 @@ export default function error() {
       src,
       lineNo,
       columnNo,
-      stack: error?.stack,
+      stack,
       pageUrl: window.location.href
     }
     // todo 发送错误信息
@@ -50,12 +50,13 @@ export default function error() {
   window.addEventListener(
     'unhandledrejection',
     (e: PromiseRejectionEvent) => {
-      const reportData = {
+      const stack = parseStackFrames(e.reason)
+      const reportData: PromiseErrorType = {
         type: 'error',
         subType: 'promise',
-        reason: e.reason?.stack,
-        pageUrl: window.location.href,
-        startTime: e.timeStamp
+        msg: e.reason.message,
+        stack,
+        pageUrl: window.location.href
       }
       // todo 发送错误信息
       report(reportData)
