@@ -1,6 +1,11 @@
 import { ErrorEnum } from '../common/enum'
 import { report } from '../common/report'
-import { getVueComponentInfo, parseStackFrames } from '../common/utils'
+import {
+  getErrorUid,
+  getVueComponentInfo,
+  parseStackFrames
+} from '../common/utils'
+import { VueErrorType } from '../types'
 
 // 初始化 Vue异常 的数据获取和上报
 export interface Vue {
@@ -19,7 +24,7 @@ const initVueError = (app: Vue) => {
     const message = err.message
     const stack = parseStackFrames(err)
     const pageUrl = window.location.href
-    const reportData = {
+    const reportData: VueErrorType = {
       type,
       subType,
       message,
@@ -27,7 +32,8 @@ const initVueError = (app: Vue) => {
       pageUrl,
       info,
       componentName,
-      url
+      url,
+      errId: getErrorUid(`${subType}-${message}-${url}`)
     }
     report(reportData)
   }

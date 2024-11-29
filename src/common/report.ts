@@ -1,5 +1,4 @@
-import config from './config'
-import { generateUniqueId } from './utils'
+import { getConfig } from './config'
 import { addCache, getCache, clearCache } from './cache'
 export const originalProto = XMLHttpRequest.prototype
 export const originalOpen = XMLHttpRequest.prototype.open
@@ -8,13 +7,14 @@ export function isSupportSendBeacon() {
   return 'sendBeacon' in window.navigator
 }
 
+const config = getConfig()
 export function report(data: any) {
   if (!config.url) {
     console.error('请设置上传 url 地址')
   }
   const reportData = JSON.stringify({
-    id: generateUniqueId(),
-    data
+    userId: config.userId,
+    ...data
   })
   // 上报数据，使用图片的方式
   if (config.isImageUpload) {

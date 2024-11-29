@@ -6,7 +6,7 @@ const config: ConfigType = {
   appId: '123456',
   userId: '123456',
   isImageUpload: false,
-  isBeaconUpload: false,
+  isBeaconUpload: true,
   batchSize: 5
 }
 
@@ -17,4 +17,7 @@ export function setConfig(options: ConfigType) {
     }
   }
 }
-export default config
+
+export function getConfig() {
+  return config
+}

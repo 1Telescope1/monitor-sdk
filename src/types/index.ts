@@ -105,6 +105,10 @@ export type PerformanceResourceType = commonType & {
   type: string
 }
 
+export type ErrorCommonType = {
+  errId: string
+}
+
 export type ResourceErrorTarget = {
   src?: string
   href?: string
@@ -112,26 +116,39 @@ export type ResourceErrorTarget = {
   outerHTML?: string
 }
 
-export type ResourceErrorType = commonType & {
-  message: string | Event // 错误信息
-  src?: string // 资源路径
-  pageUrl: string // 页面路径
-  tagName?: string // 标签名
-  html: any
-  path: string // 节点的dom位置
-}
+export type ResourceErrorType = commonType &
+  ErrorCommonType & {
+    message: string | Event // 错误信息
+    src?: string // 资源路径
+    pageUrl: string // 页面路径
+    tagName?: string // 标签名
+    html: any
+    path: string // 节点的dom位置
+  }
 
-export type JsErrorType = commonType & {
-  message: string | Event // 错误信息
-  src?: string // 资源路径，打包后到路径
-  lineNo?: number // 错误行号
-  columnNo?: number // 错误列号
-  stack: any[] // 错误堆栈
-  pageUrl: string // 页面路径
-}
+export type JsErrorType = commonType &
+  ErrorCommonType & {
+    message: string | Event // 错误信息
+    src?: string // 资源路径，打包后到路径
+    lineNo?: number // 错误行号
+    columnNo?: number // 错误列号
+    stack: any[] // 错误堆栈
+    pageUrl: string // 页面路径
+  }
 
-export type PromiseErrorType = commonType & {
-  message: string | Event // 错误信息
-  stack?: any[] // 错误堆栈
-  pageUrl: string // 页面路径
-}
+export type PromiseErrorType = commonType &
+  ErrorCommonType & {
+    message: string | Event // 错误信息
+    stack?: any[] // 错误堆栈
+    pageUrl: string // 页面路径
+  }
+
+export type VueErrorType = commonType &
+  ErrorCommonType & {
+    message: string
+    stack: any[]
+    pageUrl: string
+    info: string
+    componentName: string
+    url: string
+  }

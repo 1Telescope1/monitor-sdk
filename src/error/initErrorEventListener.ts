@@ -1,6 +1,10 @@
 import { ErrorEnum } from '../common/enum'
 import { report } from '../common/report'
-import { getPathToElement, parseStackFrames } from '../common/utils'
+import {
+  getErrorUid,
+  getPathToElement,
+  parseStackFrames
+} from '../common/utils'
 import {
   JsErrorType,
   PromiseErrorType,
@@ -34,7 +38,8 @@ const initResourceError = (e: Event) => {
     html,
     src,
     pageUrl: window.location.href,
-    path
+    path,
+    errId: getErrorUid(`${subType}-${message}-${src}`)
   }
   report(reportData)
 }
@@ -58,7 +63,8 @@ const initJsError = (e: ErrorEvent) => {
     src,
     subType,
     pageUrl: window.location.href,
-    stack
+    stack,
+    errId: getErrorUid(`${subType}-${message}-${src}`)
   }
   report(reportData)
 }
@@ -105,7 +111,8 @@ const initErrorEventListener = () => {
         subType: 'promise',
         message: e.reason.message,
         stack,
-        pageUrl: window.location.href
+        pageUrl: window.location.href,
+        errId: getErrorUid(`'promise'-${e.reason.message}`)
       }
       // todo 发送错误信息
       report(reportData)

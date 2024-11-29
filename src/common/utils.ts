@@ -30,6 +30,17 @@ export function generateUniqueId() {
   return 'id-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9)
 }
 
+// 对每一个错误详情，生成一串编码
+
+export const getErrorUid = (input: string): string => {
+  let hash = 0
+  for (let i = 0; i < input.length; i++) {
+    const charCode = input.charCodeAt(i)
+    hash = (hash * 31 + charCode) >>> 0 // 保证为非负数
+  }
+  return hash.toString(36) // 转换为更短的 36 进制字符串
+}
+
 export function getPathToElement(element: any) {
   const path = []
   let currentElement = element
