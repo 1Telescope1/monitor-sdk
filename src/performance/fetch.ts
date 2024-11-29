@@ -5,7 +5,7 @@ const originalFetch: typeof window.fetch = window.fetch
 
 function overwriteFetch(): void {
   window.fetch = function newFetch(
-    url: string | URL | Request,
+    url: any,
     config?: RequestInit
   ): Promise<Response> {
     const startTime = Date.now()

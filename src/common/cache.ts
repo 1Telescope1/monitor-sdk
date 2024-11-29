@@ -1,4 +1,4 @@
-import { deepClone } from './utils.js'
+import { deepClone } from './utils'
 
 const cache: any[] = []
 export function getCache() {
