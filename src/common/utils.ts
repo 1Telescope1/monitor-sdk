@@ -1,3 +1,5 @@
+import { PageInformation, originInfoType } from '../types'
+
 export function deepClone(obj: any, hash = new WeakMap()) {
   if (obj == null) {
     return obj
@@ -133,5 +135,56 @@ export const getVueComponentInfo = (vm: any) => {
   return {
     componentName: name ? `<${classify(name)}>` : ANONYMOUS_COMPONENT_NAME,
     url: file
+  }
+}
+
+// 获取 PI 页面基本信息
+export const getPageInfo = (): PageInformation => {
+  const {
+    host,
+    hostname,
+    href,
+    protocol,
+    origin,
+    port,
+    pathname,
+    search,
+    hash
+  } = window.location
+  const { width, height } = window.screen
+  const { language, userAgent } = navigator
+
+  return {
+    host,
+    hostname,
+    href,
+    protocol,
+    origin,
+    port,
+    pathname,
+    search,
+    hash,
+    title: document.title,
+    language: language.substr(0, 2),
+    userAgent,
+    winScreen: `${width}x${height}`,
+    docScreen: `${document.documentElement.clientWidth || document.body.clientWidth}x${
+      document.documentElement.clientHeight || document.body.clientHeight
+    }`
+  }
+}
+
+export const afterLoad = (callback: any) => {
+  if (document.readyState === 'complete') {
+    setTimeout(callback)
+  } else {
+    window.addEventListener('pageshow', callback, { once: true, capture: true })
+  }
+}
+
+export const getOriginInfo = (): originInfoType => {
+  return {
+    referrer: document.referrer,
+    navigationType: window.performance?.navigation.type || ''
   }
 }

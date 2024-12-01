@@ -1,9 +1,9 @@
 import { report } from './common/report'
-import behavior from './behavior'
 import performance from './performance'
 import error from './error'
 import { setConfig } from './common/config'
 import { ConfigType } from './types'
+import Behavior from './behavior'
 
 const monitorSDK = {
   vue: false,
@@ -62,7 +62,7 @@ export function init(options: ConfigType) {
 export default {
   install,
   errorBoundary,
-  behavior,
   performance,
-  error
+  error,
+  Behavior
 }

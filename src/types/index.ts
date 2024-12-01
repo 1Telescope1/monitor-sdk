@@ -152,3 +152,64 @@ export type VueErrorType = commonType &
     componentName: string
     url: string
   }
+
+export type PageInformation = {
+  host: string
+  hostname: string
+  href: string
+  protocol: string
+  origin: string
+  port: string
+  pathname: string
+  search: string
+  hash: string
+  // 网页标题
+  title: string
+  // 浏览器的语种 (eg:zh) ; 这里截取前两位，有需要也可以不截取
+  language: string
+  // 用户 userAgent 信息
+  userAgent?: string
+  // 屏幕宽高 (eg:1920x1080)  屏幕宽高意为整个显示屏的宽高
+  winScreen: string
+  // 文档宽高 (eg:1388x937)   文档宽高意为当前页面显示的实际宽高（有的同学喜欢半屏显示）
+  docScreen: string
+}
+
+// 这里参考了 谷歌GA 的自定义埋点上报数据维度结构
+export type customAnalyticsData = commonType & {
+  // 埋点key
+  eventKey: string
+  // 触发条件 click expose
+  eventAction: string
+  // 事件值 与事件相关的数值
+  eventValue?: any
+}
+
+export type originInfoType = {
+  referrer: string
+  // 0 (TYPE_NAVIGATE): 页面通过常规导航加载，例如通过输入 URL 或点击链接。
+  // 1 (TYPE_RELOAD): 页面通过重新加载（刷新）加载。
+  // 2 (TYPE_BACK_FORWARD): 页面通过浏览器的前进或后退按钮加载。
+  // 255 (TYPE_RESERVED): 任何其他类型的导航。
+  navigationType: string | number
+}
+
+export type PvInfoType = commonType & {
+  timestamp: number
+  pageInfo: PageInformation
+  originInfo: originInfoType
+}
+
+export type RouterChangeType = commonType & {
+  jumpType: string
+  timestamp: number
+  pageUrl: string
+}
+
+export type TargetInfoType = commonType & {
+  path: string
+  tagName: string
+  textContent: string | null
+  pageUrl: string
+  timestamp: number
+}

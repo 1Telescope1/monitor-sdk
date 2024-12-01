@@ -47,7 +47,11 @@ module.exports = [
         Document: "readonly",
         Window: "readonly",
         ErrorEvent: "readonly",
-        React: "readonly"
+        React: "readonly",
+        MouseEvent: "readonly",
+        history: "readonly",
+        navigator: "readonly",
+        History: "readonly"
       }
     },
     plugins: {
