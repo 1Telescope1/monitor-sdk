@@ -51,7 +51,10 @@ module.exports = [
         MouseEvent: "readonly",
         history: "readonly",
         navigator: "readonly",
-        History: "readonly"
+        History: "readonly",
+        Element: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly"
       }
     },
     plugins: {

@@ -1,18 +1,18 @@
-import performance from './performance'
-import error from './error'
 import { setConfig } from './common/config'
 import { ConfigType } from './types'
 import Behavior from './behavior'
+import Exception from './exception'
+import Performance from './performance'
+import Error from './error'
 
-export function init(options: ConfigType) {
+function init(options: ConfigType) {
   setConfig(options)
-  // performance();
-  // error();
-  // behavior();
 }
 
 export default {
-  performance,
-  error,
-  Behavior
+  init,
+  Performance,
+  Error,
+  Behavior,
+  Exception
 }
