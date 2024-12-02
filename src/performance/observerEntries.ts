@@ -1,5 +1,5 @@
 import { report } from '../common/report'
-import { PerformanceResourceType, reportDataType } from '../types'
+import { PerformanceResourceType } from '../types'
 
 export default function observerEntries() {
   if (document.readyState === 'complete') {

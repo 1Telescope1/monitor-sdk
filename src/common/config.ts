@@ -6,7 +6,7 @@ const config: ConfigType = {
   appId: '123456',
   userId: '123456',
   isImageUpload: false,
-  isBeaconUpload: true,
+  isBeaconUpload: false,
   batchSize: 5
 }
 
