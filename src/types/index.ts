@@ -220,3 +220,8 @@ export type whiteScreenType = commonType & {
   pageUrl: string
   timestamp: number
 }
+
+export type CrashType = commonType & {
+  pageUrl: string
+  timestamp: number
+}

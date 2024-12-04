@@ -55,7 +55,13 @@ module.exports = [
         Element: "readonly",
         clearTimeout: "readonly",
         setInterval: "readonly",
-        requestAnimationFrame: "readonly"
+        requestAnimationFrame: "readonly",
+        postMessage: "readonly",
+        onmessage: "writable",
+        clearInterval: "readonly",
+        close: "readonly",
+        fetch: "readonly",
+
       }
     },
     plugins: {
