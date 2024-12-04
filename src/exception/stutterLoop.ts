@@ -1,4 +1,5 @@
 import { report } from '../common/report'
+import { stutterStype } from '../types'
 
 let lastFrameTime = performance.now()
 let frameCount = 0
@@ -13,7 +14,7 @@ function trackFPS(timestamp: number) {
   // 每过一秒输出 FPS
   if (delta >= 1000) {
     if (frameCount <= minFPS) {
-      const reportData = {
+      const reportData: stutterStype = {
         type: 'exception',
         subType: 'stutter',
         pageUrl: window.location.href,

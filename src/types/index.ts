@@ -221,6 +221,11 @@ export type whiteScreenType = commonType & {
   timestamp: number
 }
 
+export type stutterStype = commonType & {
+  pageUrl: string
+  timestamp: number
+}
+
 export type CrashType = commonType & {
   pageUrl: string
   timestamp: number
