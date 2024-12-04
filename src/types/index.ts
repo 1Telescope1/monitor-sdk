@@ -6,7 +6,9 @@ export type ConfigType = {
   isImageUpload: boolean
   batchSize: number
   isBeaconUpload: boolean
-  [key: string]: string | boolean | number // 添加索引签名
+  containerElements: string[]
+  skeletonElements: string[]
+  [key: string]: string | boolean | number | string[] // 添加索引签名
 }
 
 export type reportDataType = {
@@ -210,6 +212,11 @@ export type TargetInfoType = commonType & {
   path: string
   tagName: string
   textContent: string | null
+  pageUrl: string
+  timestamp: number
+}
+
+export type whiteScreenType = commonType & {
   pageUrl: string
   timestamp: number
 }

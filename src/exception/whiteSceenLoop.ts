@@ -1,5 +1,12 @@
+import { getConfig } from '../common/config'
+import { report } from '../common/report'
+import { whiteScreenType } from '../types'
+
+let initTime = 0
+const whiteScreenTime = 6000
+
 // 定义外层容器元素的集合
-const containerElements = ['html', 'body', '#app', '#root']
+const { containerElements, skeletonElements } = getConfig()
 // 页面加载完毕
 function onload(callback: any) {
   if (document.readyState === 'complete') {
@@ -34,7 +41,12 @@ function whiteScreen() {
   // 是否为容器节点
   function isContainer(element: Element) {
     const selector = getSelector(element)
-    if (containerElements.indexOf(selector) != -1) {
+    if (
+      containerElements.indexOf(selector) != -1 ||
+      skeletonElements.some(skeletonSelector =>
+        element.matches(skeletonSelector)
+      )
+    ) {
       emptyPoints++
     }
   }
@@ -58,26 +70,38 @@ function whiteScreen() {
     }
     // 17个点都是容器节点算作白屏
     if (emptyPoints != 17) {
-      if (window.whiteLoopTimer) {
-        clearTimeout(window.whiteLoopTimer)
-        window.whiteLoopTimer = null
-      }
-      console.log('success')
+      initTime = new Date().getTime()
+      // if (window.whiteLoopTimer) {
+      //   clearTimeout(window.whiteLoopTimer)
+      //   window.whiteLoopTimer = null
+      // }
     } else {
-      // 开启轮询
-      if (!window.whiteLoopTimer) {
-        whiteSceenLoop()
+      const nowTime = new Date().getTime()
+      if (nowTime - initTime >= whiteScreenTime) {
+        const reportData: whiteScreenType = {
+          type: 'exception',
+          subType: 'whiteScreen',
+          pageUrl: window.location.href,
+          timestamp: nowTime
+        }
+        console.error('页面白屏')
+        report(reportData)
+        if (window.whiteLoopTimer) {
+          clearTimeout(window.whiteLoopTimer)
+          window.whiteLoopTimer = null
+        }
       }
+      // 开启轮询
+      // if (!window.whiteLoopTimer) {
+      //   whiteSceenLoop()
+      // }
     }
-    // 通过轮询不断修改之前的检测结果，直到页面正常渲染
-    console.log({
-      status: emptyPoints == 17 ? 'error' : 'ok'
-    })
   }
   onload(main)
 }
 
 export default function whiteSceenLoop() {
+  initTime = new Date().getTime()
   window.whiteLoopTimer = setInterval(() => {
     whiteScreen()
   }, 2000)

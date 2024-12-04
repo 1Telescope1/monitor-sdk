@@ -7,7 +7,9 @@ const config: ConfigType = {
   userId: '123456',
   isImageUpload: false,
   isBeaconUpload: false,
-  batchSize: 5
+  batchSize: 5,
+  containerElements: ['html', 'body', '#app', '#root'],
+  skeletonElements: []
 }
 
 export function setConfig(options: ConfigType) {
