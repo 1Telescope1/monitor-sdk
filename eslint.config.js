@@ -54,7 +54,8 @@ module.exports = [
         History: "readonly",
         Element: "readonly",
         clearTimeout: "readonly",
-        setInterval: "readonly"
+        setInterval: "readonly",
+        requestAnimationFrame: "readonly"
       }
     },
     plugins: {
