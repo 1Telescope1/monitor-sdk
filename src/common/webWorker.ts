@@ -19,7 +19,6 @@ function sendHeartbeat() {
 // 监听主线程消息
 onmessage = event => {
   const { type, pageTime: receivedPageTime, pageUrl } = event.data
-  console.log(event.data)
   nowUrl = pageUrl
   if (type === 'heartbeat-response') {
     // 主线程返回心跳响应时，更新 pageTime
@@ -53,7 +52,6 @@ const reportError = () => {
 }
 
 const isCrash = () => {
-  console.log(checkTime - pageTime)
   if (checkTime - pageTime >= setTimeoutTime * 2) {
     if (!crash) {
       reportError()

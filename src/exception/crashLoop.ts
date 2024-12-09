@@ -1,9 +1,9 @@
 // @ts-ignore
 import Worker from '../common/webWorker.ts?worker'
-const worker = new Worker()
 
 export default function crashLoop() {
   if (window.Worker) {
+    const worker = new Worker()
     // 监听 Web Worker 的心跳消息
     worker.onmessage = (event: any) => {
       const { type } = event.data
