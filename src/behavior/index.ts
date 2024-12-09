@@ -14,21 +14,25 @@ import {
 import BehaviorStore from './behaviorStore'
 import { proxyHash, proxyHistory, wrHistory } from './utils'
 
-export default class Behavior {
+class Behavior {
   // 本地暂存数据在 Map 里 （也可以自己用对象来存储）
   public metrics: any
 
   public breadcrumbs: any
 
-  public customHandler: Function
+  public customHandler!: Function
 
   // 最大行为追踪记录数
-  public maxBehaviorRecords: number
+  public maxBehaviorRecords!: number
 
   // 允许捕获click事件的DOM标签 eg:button div img canvas
-  clickMountList: Array<string>
+  public clickMountList!: Array<string>
+  static instance: any
 
   constructor() {
+    if (Behavior.instance) {
+      return Behavior.instance
+    }
     this.maxBehaviorRecords = 100
     // 初始化行为追踪记录
     this.breadcrumbs = new BehaviorStore({
@@ -45,6 +49,8 @@ export default class Behavior {
     this.initPV()
     // 初始化 click 事件捕获
     this.initClickHandler(this.clickMountList)
+    window.behavior = this
+    Behavior.instance = this
   }
 
   // 初始化用户自定义埋点数据的获取上报
@@ -127,4 +133,8 @@ export default class Behavior {
       )
     })
   }
+}
+
+export default function initBehavior() {
+  new Behavior()
 }

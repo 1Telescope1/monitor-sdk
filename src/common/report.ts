@@ -28,6 +28,18 @@ export function report(data: any) {
       xhrRequest(reportData)
     }
   }
+  if (
+    (data.type == 'error' && data.subType !== 'resource') ||
+    data.type === 'exception'
+  ) {
+    const state = window.behavior.breadcrumbs.state
+    const reportData = {
+      state,
+      type: 'behavior',
+      subType: 'behavior-store'
+    }
+    report(reportData)
+  }
 }
 // 批量上报数据
 export function lazyReportBatch(data: any) {
