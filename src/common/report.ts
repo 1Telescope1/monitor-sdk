@@ -1,46 +1,45 @@
 import { getConfig } from './config'
 import { addCache, getCache, clearCache } from './cache'
-export const originalProto = XMLHttpRequest.prototype
-export const originalOpen = XMLHttpRequest.prototype.open
-export const originalSend = XMLHttpRequest.prototype.send
-export function isSupportSendBeacon() {
+const originalOpen = XMLHttpRequest.prototype.open
+const originalSend = XMLHttpRequest.prototype.send
+function isSupportSendBeacon() {
   return 'sendBeacon' in window.navigator
 }
 
 const config = getConfig()
-export function report(data: any) {
-  if (!config.url) {
-    console.error('请设置上传 url 地址')
+
+let sendServe: any
+if (config.isImageUpload) {
+  sendServe = imgRequest
+} else {
+  if (isSupportSendBeacon() && config.isBeaconUpload) {
+    sendServe = beaconRequest
+  } else {
+    sendServe = xhrRequest
   }
+}
+
+export function report(data: any) {
   const reportData = JSON.stringify({
     userId: config.userId,
     ...data
   })
-  // 上报数据，使用图片的方式
-  if (config.isImageUpload) {
-    imgRequest(reportData)
-  } else {
-    // 优先使用 sendBeacon
-    // @ts-ignore
-    if (isSupportSendBeacon() && config.isBeaconUpload) {
-      beaconRequest(reportData)
-    } else {
-      xhrRequest(reportData)
-    }
-  }
+  sendServe(reportData)
   if (
     (data.type == 'error' && data.subType !== 'resource') ||
     data.type === 'exception'
   ) {
     const state = window.behavior.breadcrumbs.state
     const reportData = {
+      userId: config.userId,
       state,
       type: 'behavior',
       subType: 'behavior-store'
     }
-    report(reportData)
+    sendServe(reportData)
   }
 }
+
 // 批量上报数据
 export function lazyReportBatch(data: any) {
   addCache(data)
@@ -53,13 +52,13 @@ export function lazyReportBatch(data: any) {
   //
 }
 // 图片发送数据
-export function imgRequest(data: any) {
+function imgRequest(data: any) {
   const img = new Image()
   // http://127.0.0.1:8080/api?data=encodeURIComponent(data)
   img.src = `${config.url}?data=${encodeURIComponent(JSON.stringify(data))}`
 }
 // 普通ajax发送请求数据
-export function xhrRequest(data: any) {
+function xhrRequest(data: any) {
   const xhr = new XMLHttpRequest()
   originalOpen.call(xhr, 'post', config.url, true)
   // 设置请求头
@@ -79,7 +78,7 @@ export function xhrRequest(data: any) {
   }
 }
 
-export function beaconRequest(data: any) {
+function beaconRequest(data: any) {
   if (window.requestIdleCallback) {
     window.requestIdleCallback(
       () => {
