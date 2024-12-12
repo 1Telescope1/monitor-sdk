@@ -12,7 +12,7 @@ const config: ConfigType = {
   skeletonElements: []
 }
 
-export function setConfig(options: ConfigType) {
+export function setConfig(options: ConfigType = config) {
   for (const key in config) {
     if (options[key]) {
       config[key] = options[key]

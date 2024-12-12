@@ -29,7 +29,7 @@ export function report(data: any) {
     (data.type == 'error' && data.subType !== 'resource') ||
     data.type === 'exception'
   ) {
-    const state = window.behavior.breadcrumbs.state
+    const state = window.$SDK.Behaviour.breadcrumbs.state
     const reportData = {
       userId: config.userId,
       state,

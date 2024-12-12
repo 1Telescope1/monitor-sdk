@@ -49,7 +49,7 @@ class Behavior {
     this.initPV()
     // 初始化 click 事件捕获
     this.initClickHandler(this.clickMountList)
-    window.behavior = this
+    window.$SDK.Behaviour = this
     Behavior.instance = this
   }
 

@@ -7,6 +7,7 @@ import Error from './error'
 
 function init(options: ConfigType) {
   setConfig(options)
+  window.$SDK = {}
 }
 
 export default {
