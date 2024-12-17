@@ -1,3 +1,4 @@
+import { TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { PerformanceResourceType } from '../types'
 
@@ -21,7 +22,7 @@ export function observerEvent() {
         continue
       }
       const reportData: PerformanceResourceType = {
-        type: 'performance', // 类型
+        type: TraceTypeEnum.performance, // 类型
         subType: resourceEntry.entryType, // 类型
         name: resourceEntry.name, // 资源的名字
         sourceType: resourceEntry.initiatorType, // 资源类型

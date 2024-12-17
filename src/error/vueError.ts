@@ -1,4 +1,4 @@
-import { ErrorEnum } from '../common/enum'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import {
   getErrorUid,
@@ -19,8 +19,8 @@ const initVueError = (app: Vue) => {
   app.config.errorHandler = (err: Error, vm: any, info: string) => {
     console.error(err)
     const { componentName, url } = getVueComponentInfo(vm)
-    const type = 'error'
-    const subType = ErrorEnum.VUE
+    const type = TraceTypeEnum.error
+    const subType = TraceSubTypeEnum.vue
     const message = err.message
     const stack = parseStackFrames(err)
     const pageUrl = window.location.href

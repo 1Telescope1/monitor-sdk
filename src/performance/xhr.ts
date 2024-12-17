@@ -1,3 +1,4 @@
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { AjaxType } from '../types'
 
@@ -47,9 +48,9 @@ function overwriteOpenAndSend() {
         endTime,
         url,
         method: method?.toUpperCase(),
-        type: 'performance',
+        type: TraceTypeEnum.performance,
         success: status >= 200 && status < 300,
-        subType: 'xhr'
+        subType: TraceSubTypeEnum.xhr
       }
       // todo: 发送数据
       report(reportData)

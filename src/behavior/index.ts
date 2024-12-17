@@ -1,3 +1,4 @@
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import {
   afterLoad,
@@ -67,8 +68,8 @@ class Behavior {
     const handler = (e: Event) => {
       // 记录到行为记录追踪
       const behavior: RouterChangeType = {
-        type: 'behavior',
-        subType: 'router-change',
+        type: TraceTypeEnum.behavior,
+        subType: TraceSubTypeEnum.routerChange,
         pageUrl: window.location.href,
         jumpType: e.type, // 跳转的方法 eg:replaceState
         timestamp: new Date().getTime()
@@ -86,8 +87,8 @@ class Behavior {
   initPV = () => {
     const handler = () => {
       const reportData: PvInfoType = {
-        type: 'behavior',
-        subType: 'pv',
+        type: TraceTypeEnum.behavior,
+        subType: TraceSubTypeEnum.pv,
         timestamp: new Date().getTime(),
         // 页面信息
         pageInfo: getPageInfo(),
@@ -113,7 +114,7 @@ class Behavior {
         return
       }
       const behavior: TargetInfoType = {
-        type: 'behavior',
+        type: TraceTypeEnum.behavior,
         subType: e.type as string,
         tagName: target.tagName,
         pageUrl: window.location.href,

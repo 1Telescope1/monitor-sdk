@@ -1,4 +1,4 @@
-import { ErrorEnum } from '../common/enum'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import {
   getErrorUid,
@@ -15,9 +15,11 @@ import {
 const getErrorType = (event: ErrorEvent | Event) => {
   const isJsError = event instanceof ErrorEvent
   if (!isJsError) {
-    return ErrorEnum.RESOURCE
+    return TraceSubTypeEnum.resource
   }
-  return event.message === 'Script error.' ? ErrorEnum.CORS : ErrorEnum.JS
+  return event.message === 'Script error.'
+    ? TraceSubTypeEnum.cors
+    : TraceSubTypeEnum.js
 }
 
 const initResourceError = (e: Event) => {
@@ -25,7 +27,7 @@ const initResourceError = (e: Event) => {
   const target = e.target as ResourceErrorTarget
   const src = target.src || target.href
   const type = e.type
-  const subType = ErrorEnum.RESOURCE
+  const subType = TraceSubTypeEnum.resource
   const tagName = target.tagName
   const message = ''
   const html = target.outerHTML
@@ -53,7 +55,7 @@ const initJsError = (e: ErrorEvent) => {
     filename: src,
     error
   } = e
-  const subType = ErrorEnum.JS
+  const subType = TraceSubTypeEnum.js
   const stack = parseStackFrames(error)
   const reportData: JsErrorType = {
     columnNo,
@@ -71,8 +73,8 @@ const initJsError = (e: ErrorEvent) => {
 
 const initCorsError = (e: ErrorEvent) => {
   const { message } = e
-  const type = 'error'
-  const subType = ErrorEnum.CORS
+  const type = TraceTypeEnum.error
+  const subType = TraceSubTypeEnum.cors
   const reportData = {
     type,
     subType,
@@ -87,13 +89,13 @@ const initErrorEventListener = () => {
     (e: ErrorEvent | Event) => {
       const errorType = getErrorType(e)
       switch (errorType) {
-        case ErrorEnum.RESOURCE:
+        case TraceSubTypeEnum.resource:
           initResourceError(e)
           break
-        case ErrorEnum.JS:
+        case TraceSubTypeEnum.js:
           initJsError(e as ErrorEvent)
           break
-        case ErrorEnum.CORS:
+        case TraceSubTypeEnum.cors:
           initCorsError(e as ErrorEvent)
           break
         default:
@@ -107,8 +109,8 @@ const initErrorEventListener = () => {
     (e: PromiseRejectionEvent) => {
       const stack = parseStackFrames(e.reason)
       const reportData: PromiseErrorType = {
-        type: 'error',
-        subType: 'promise',
+        type: TraceTypeEnum.error,
+        subType: TraceSubTypeEnum.promise,
         message: e.reason.message,
         stack,
         pageUrl: window.location.href,

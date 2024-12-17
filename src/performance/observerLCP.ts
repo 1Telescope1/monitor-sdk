@@ -1,3 +1,4 @@
+import { TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { PaintType } from '../types'
 
@@ -10,7 +11,7 @@ export default function observerLCP() {
       const json = entry.toJSON()
       const reportData: PaintType = {
         ...json,
-        type: 'performance',
+        type: TraceTypeEnum.performance,
         subType: entry.entryType,
         pageUrl: window.location.href
       }

@@ -1,4 +1,5 @@
 import { getConfig } from '../common/config'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { whiteScreenType } from '../types'
 
@@ -79,8 +80,8 @@ function whiteScreen() {
       const nowTime = new Date().getTime()
       if (nowTime - initTime >= whiteScreenTime) {
         const reportData: whiteScreenType = {
-          type: 'exception',
-          subType: 'whiteScreen',
+          type: TraceTypeEnum.exception,
+          subType: TraceSubTypeEnum.whiteScreen,
           pageUrl: window.location.href,
           timestamp: nowTime
         }

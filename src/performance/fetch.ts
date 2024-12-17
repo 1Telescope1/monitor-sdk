@@ -1,3 +1,4 @@
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { AjaxType } from '../types'
 
@@ -12,8 +13,8 @@ function overwriteFetch(): void {
     const urlString =
       typeof url === 'string' ? url : url instanceof URL ? url.href : url.url
     const reportData: AjaxType = {
-      type: 'performance',
-      subType: 'fetch',
+      type: TraceTypeEnum.performance,
+      subType: TraceSubTypeEnum.fetch,
       url: urlString,
       startTime,
       endTime: 0,

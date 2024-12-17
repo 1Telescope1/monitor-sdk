@@ -1,6 +1,8 @@
 // 派发出新的 Event
 const wr = (type: keyof History) => {
   const orig = history[type]
+
+  /* eslint-disable no-unused-vars */
   return function (this: unknown) {
     const rv = orig.apply(this, arguments)
     const e = new Event(type)

@@ -1,3 +1,4 @@
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { PaintType } from '../types'
 
@@ -17,8 +18,8 @@ export default function observePageLoadTime() {
     const reportData: PaintType = {
       name: '',
       entryType: 'load',
-      type: 'performance',
-      subType: 'load',
+      type: TraceTypeEnum.performance,
+      subType: TraceSubTypeEnum.load,
       pageUrl: window.location.href,
       startTime: startTimestamp,
       duration: loadTime

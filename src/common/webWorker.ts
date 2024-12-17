@@ -4,6 +4,7 @@ import { getConfig } from './config'
 // 初始化时间记录
 let pageTime = performance.now() // 页面主线程响应的时间
 let checkTime = performance.now() // 当前 Web Worker 的时间
+
 let intervalId: any
 const setTimeoutTime = 2000
 let nowUrl = ''

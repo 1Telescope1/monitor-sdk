@@ -1,3 +1,4 @@
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
 import { stutterStype } from '../types'
 
@@ -15,8 +16,8 @@ function trackFPS(timestamp: number) {
   if (delta >= 1000) {
     if (frameCount <= minFPS) {
       const reportData: stutterStype = {
-        type: 'exception',
-        subType: 'stutter',
+        type: TraceTypeEnum.exception,
+        subType: TraceSubTypeEnum.stutter,
         pageUrl: window.location.href,
         timestamp: new Date().getTime()
       }

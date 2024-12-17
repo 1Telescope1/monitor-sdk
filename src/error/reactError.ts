@@ -6,6 +6,7 @@ import {
   parseStackFrames
 } from '../common/utils'
 import { ReactErrorType } from '../types'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 
 interface ErrorBoundaryProps {
   fallback?: ReactNode // ReactNode 表示任意有效的 React 内容
@@ -25,8 +26,8 @@ class ErrorBoundary extends React.Component<
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     this.setState({ hasError: true })
     const { componentName, url } = getReactComponentInfo(errorInfo)
-    const type = 'error'
-    const subType = 'react'
+    const type = TraceTypeEnum.error
+    const subType = TraceSubTypeEnum.react
     const message = error.message
     const stack = parseStackFrames(error)
     const pageUrl = window.location.href
