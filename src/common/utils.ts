@@ -138,6 +138,47 @@ export const getVueComponentInfo = (vm: any) => {
   }
 }
 
+// 获取react报错组件信息
+export const getReactComponentInfo = (errorInfo: React.ErrorInfo) => {
+  const ANONYMOUS_COMPONENT_NAME = '<Anonymous>'
+  const ROOT_COMPONENT_NAME = '<Root>'
+
+  // 获取 React 组件调用栈
+  const componentStack = errorInfo.componentStack || ''
+
+  /**
+   * 提取组件调用栈中最后一个出错的组件
+   * React 的 componentStack 通常包含如下格式:
+   *   at ComponentName (filePath:line:column)
+   *   at AnotherComponent (filePath:line:column)
+   */
+  const extractComponentName = (stack: string) => {
+    const match = stack.match(/at\s+([^\s]+)\s+\(/)
+    if (match && match[1]) {
+      return `<${match[1]}>`
+    }
+    return ANONYMOUS_COMPONENT_NAME
+  }
+
+  const extractComponentFile = (stack: string) => {
+    const match = stack.match(/\(([^)]+)\)/)
+    if (match && match[1]) {
+      return match[1] // 返回文件路径及位置
+    }
+    return ''
+  }
+
+  // 提取信息
+  const componentName =
+    extractComponentName(componentStack) || ROOT_COMPONENT_NAME
+  const componentFile = extractComponentFile(componentStack)
+
+  return {
+    componentName,
+    url: componentFile
+  }
+}
+
 // 获取 PI 页面基本信息
 export const getPageInfo = (): PageInformation => {
   const {

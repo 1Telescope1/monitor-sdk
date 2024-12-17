@@ -155,6 +155,8 @@ export type VueErrorType = commonType &
     url: string
   }
 
+export type ReactErrorType = VueErrorType
+
 export type PageInformation = {
   host: string
   hostname: string
