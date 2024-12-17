@@ -1,43 +1,40 @@
+import React, { ReactNode } from 'react'
 import { report } from '../common/report'
 
-interface Props {
-  children: any // 使用 any 类型来避免直接依赖 ReactNode
+interface ErrorBoundaryProps {
+  fallback?: ReactNode // ReactNode 表示任意有效的 React 内容
+  children: ReactNode
 }
 
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean
 }
 
-// @ts-ignore
-class ErrorBoundary implements React.Component<Props, State> {
-  state: State = { hasError: false }
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  state: ErrorBoundaryState = { hasError: false }
 
-  constructor(public props: Props) {}
-
-  static getDerivedStateFromError(_: Error): State {
-    return { hasError: true }
-  }
-
-  componentDidCatch(error: Error, info: { componentStack: string }) {
-    console.log(error)
-    console.log(info)
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({ hasError: true })
 
     const reportData = {
-      error: error?.stack,
-      info: info.componentStack,
-      subType: 'react',
       type: 'error',
-      startTime: window.performance.now(),
-      pageURL: window.location.href
+      subType: 'react',
+      stack: error.stack,
+      componentStack: errorInfo.componentStack
     }
-    // 假设 report 是一个全局函数或从其他地方导入
-    report(reportData)
-    console.log(reportData, 'react')
+    console.log(reportData)
+
+    // report(reportData);
   }
 
   render() {
+    const { fallback } = this.props
+
     if (this.state.hasError) {
-      return 'Something went wrong.' // 返回一个简单的字符串作为回退 UI
+      return fallback || 'Error'
     }
 
     return this.props.children

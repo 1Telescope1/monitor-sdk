@@ -10,7 +10,9 @@
     "sourceMap": true /* 自动生成sourcemap文件 */,
     "outDir": "lib" /* 编译输出目录 */,
     "rootDir": "./src" /* 项目源码根目录，用来控制编译输出的目录结构 */,
-    "strict": true /* 启用严格模式 */
+    "strict": true /* 启用严格模式 */,
+    "esModuleInterop": true /* 允许使用默认导入语法来导入 */,
+    "jsx": "react-jsx", /*  启用 React JSX 支持 */
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib"]
