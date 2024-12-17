@@ -25,9 +25,7 @@ class ErrorBoundary extends React.Component<
       stack: error.stack,
       componentStack: errorInfo.componentStack
     }
-    console.log(reportData)
-
-    // report(reportData);
+    report(reportData)
   }
 
   render() {

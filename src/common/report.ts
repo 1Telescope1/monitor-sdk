@@ -26,17 +26,17 @@ export function report(data: any) {
   })
   sendServe(reportData)
   if (
-    (data.type == 'error' && data.subType !== 'resource') ||
+    (data.type === 'error' && data.subType !== 'resource') ||
     data.type === 'exception'
   ) {
-    const state = window.$SDK.Behaviour.breadcrumbs.state
+    const state = window.$SDK?.Behaviour?.breadcrumbs?.state || []
     const reportData = {
       userId: config.userId,
       state,
       type: 'behavior',
       subType: 'behavior-store'
     }
-    sendServe(reportData)
+    report(reportData)
   }
 }
 

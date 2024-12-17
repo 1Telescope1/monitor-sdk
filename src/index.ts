@@ -5,7 +5,7 @@ import Exception from './exception'
 import Performance from './performance'
 import Error from './error'
 
-function init(options: ConfigType) {
+function init(options?: ConfigType) {
   setConfig(options)
   window.$SDK = {}
 }
