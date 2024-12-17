@@ -1,7 +1,7 @@
 export default function crashLoop() {
   // 判断当前环境是否为开发环境
-  // @ts-ignore
   const workerPath =
+    // @ts-ignore
     import.meta.env.MODE === 'development'
       ? '../common/webWorker.ts?worker' // 开发环境使用 ?worker 后缀
       : 'web-worker:../common/webWorker.ts' // 生产环境使用 web-worker: 前缀
