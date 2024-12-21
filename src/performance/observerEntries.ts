@@ -1,6 +1,6 @@
-import { TraceTypeEnum } from '../common/enum'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { report } from '../common/report'
-import { PerformanceResourceType } from '../types'
+import { PerformanceResourceType, resourceType } from '../types'
 
 export default function observerEntries() {
   if (document.readyState === 'complete') {
@@ -15,14 +15,15 @@ export default function observerEntries() {
 }
 export function observerEvent() {
   const entryHandler = (list: PerformanceObserverEntryList) => {
+    const dataList: PerformanceResourceType[] = []
     const entries = list.getEntries()
     for (let i = 0; i < entries.length; i++) {
       const resourceEntry = entries[i] as PerformanceResourceTiming
       if (resourceEntry.initiatorType === 'xmlhttprequest') {
         continue
       }
-      const reportData: PerformanceResourceType = {
-        type: TraceTypeEnum.performance, // 类型
+      const data: PerformanceResourceType = {
+        type: TraceTypeEnum.performance,
         subType: resourceEntry.entryType, // 类型
         name: resourceEntry.name, // 资源的名字
         sourceType: resourceEntry.initiatorType, // 资源类型
@@ -39,7 +40,15 @@ export function observerEvent() {
         resourceSize: resourceEntry.decodedBodySize, // 资源解压后的大小
         startTime: resourceEntry.startTime // 资源开始加载的时间
       }
-      report(reportData)
+      dataList.push(data)
+      if (i === entries.length - 1) {
+        const reportData: resourceType = {
+          type: TraceTypeEnum.performance, // 类型
+          subType: TraceSubTypeEnum.resource, // 类型
+          resourceList: dataList
+        }
+        report(reportData)
+      }
     }
   }
 

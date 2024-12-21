@@ -46,6 +46,10 @@ export type PaintType = commonType & {
   pageUrl: string
 }
 
+export type resourceType = commonType & {
+  resourceList: PerformanceResourceType[]
+}
+
 export type AjaxType = commonType & {
   status: number
   duration: number
