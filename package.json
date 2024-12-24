@@ -2,7 +2,10 @@
   "name": "monitor-sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "files": [
+    "lib/*"
+  ],
+  "main": "lib/index.esm.js",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src --fix",
