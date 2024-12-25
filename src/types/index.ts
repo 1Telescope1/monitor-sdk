@@ -212,6 +212,7 @@ export type RouterChangeType = commonType & {
   jumpType: string
   timestamp: number
   pageUrl: string
+  pageTime: number
 }
 
 export type TargetInfoType = commonType & {

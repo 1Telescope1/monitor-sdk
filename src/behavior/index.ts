@@ -65,6 +65,7 @@ class Behavior {
 
   // 初始化 RCR 路由跳转的获取以及返回
   initRouteChange = (): void => {
+    const oldDate = Date.now()
     const handler = (e: Event) => {
       // 记录到行为记录追踪
       const behavior: RouterChangeType = {
@@ -72,7 +73,8 @@ class Behavior {
         subType: TraceSubTypeEnum.routerChange,
         pageUrl: window.location.href,
         jumpType: e.type, // 跳转的方法 eg:replaceState
-        timestamp: new Date().getTime()
+        timestamp: new Date().getTime(),
+        pageTime: Date.now() - oldDate
       }
       console.log(behavior, e.type)
 
