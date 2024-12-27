@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { stutterStype } from '../types'
 
 let lastFrameTime = performance.now()
@@ -21,7 +21,7 @@ function trackFPS(timestamp: number) {
         pageUrl: window.location.href,
         timestamp: new Date().getTime()
       }
-      report(reportData)
+      lazyReportBatch(reportData)
     }
     frameCount = 0
     lastFrameTime = timestamp

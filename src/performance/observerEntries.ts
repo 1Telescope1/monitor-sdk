@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { PerformanceResourceType, resourceType } from '../types'
 
 export default function observerEntries() {
@@ -47,7 +47,7 @@ export function observerEvent() {
           subType: TraceSubTypeEnum.resource, // 类型
           resourceList: dataList
         }
-        report(reportData)
+        lazyReportBatch(reportData)
       }
     }
   }

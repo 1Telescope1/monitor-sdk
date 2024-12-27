@@ -2,9 +2,6 @@
   "name": "monitor-sdk",
   "version": "1.0.0",
   "description": "",
-  "files": [
-    "lib/*"
-  ],
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",

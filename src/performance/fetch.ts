@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { AjaxType } from '../types'
 
 const originalFetch: typeof window.fetch = window.fetch
@@ -37,7 +37,7 @@ function overwriteFetch(): void {
         reportData.status = 0
         reportData.success = false
         // todo 上报数据
-        report(reportData)
+        lazyReportBatch(reportData)
       })
   }
 }

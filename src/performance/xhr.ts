@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { AjaxType } from '../types'
 
 export const originalProto = XMLHttpRequest.prototype
@@ -53,7 +53,7 @@ function overwriteOpenAndSend() {
         subType: TraceSubTypeEnum.xhr
       }
       // todo: 发送数据
-      report(reportData)
+      lazyReportBatch(reportData)
       this.removeEventListener('loadend', onLoaded, true)
     }
 

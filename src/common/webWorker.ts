@@ -37,11 +37,15 @@ onmessage = event => {
 }
 
 const reportError = () => {
-  const reportData: CrashType = {
+  const data: CrashType = {
     type: 'exception',
     subType: 'crash',
     pageUrl: nowUrl,
     timestamp: new Date().getTime()
+  }
+  const reportData = {
+    userId: config.userId,
+    data: { ...data }
   }
   fetch(config.url, {
     method: 'POST',

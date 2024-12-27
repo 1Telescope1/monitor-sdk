@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import {
   getErrorUid,
   getReactComponentInfo,
@@ -44,7 +44,7 @@ class ErrorBoundary extends React.Component<
       info,
       url
     }
-    report(reportData)
+    lazyReportBatch(reportData)
   }
 
   render() {

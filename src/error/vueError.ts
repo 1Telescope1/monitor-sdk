@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import {
   getErrorUid,
   getVueComponentInfo,
@@ -35,7 +35,7 @@ const initVueError = (app: Vue) => {
       url,
       errId: getErrorUid(`${subType}-${message}-${url}`)
     }
-    report(reportData)
+    lazyReportBatch(reportData)
   }
 }
 

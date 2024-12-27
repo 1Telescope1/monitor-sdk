@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import {
   afterLoad,
   getOriginInfo,
@@ -58,7 +58,7 @@ class Behavior {
   initCustomerHandler = (): Function => {
     const handler = (reportData: customAnalyticsData) => {
       // 自定义埋点的信息一般立即上报
-      report(reportData)
+      lazyReportBatch(reportData)
     }
     return handler
   }
@@ -98,7 +98,7 @@ class Behavior {
         originInfo: getOriginInfo()
       }
       // 一般来说， PV 可以立即上报
-      report(reportData)
+      lazyReportBatch(reportData)
     }
     afterLoad(() => {
       handler()

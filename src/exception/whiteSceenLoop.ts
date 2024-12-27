@@ -1,6 +1,6 @@
 import { getConfig } from '../common/config'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { whiteScreenType } from '../types'
 
 let initTime = 0
@@ -86,7 +86,7 @@ function whiteScreen() {
           timestamp: nowTime
         }
         console.error('页面白屏')
-        report(reportData)
+        lazyReportBatch(reportData)
         if (window.whiteLoopTimer) {
           clearTimeout(window.whiteLoopTimer)
           window.whiteLoopTimer = null

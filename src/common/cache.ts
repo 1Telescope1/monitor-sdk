@@ -2,7 +2,7 @@ import { deepClone } from './utils'
 
 const cache: any[] = []
 export function getCache() {
-  return deepClone(cache)
+  return cache
 }
 export function addCache(data: any) {
   cache.push(data)

@@ -1,5 +1,5 @@
 import { TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { PaintType } from '../types'
 
 export default function observerLCP() {
@@ -16,7 +16,7 @@ export default function observerLCP() {
         pageUrl: window.location.href
       }
       // 发送数据 todo;
-      report(reportData)
+      lazyReportBatch(reportData)
     }
   }
   // 统计和计算lcp的时间

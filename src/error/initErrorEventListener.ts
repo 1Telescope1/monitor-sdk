@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import {
   getErrorUid,
   getPathToElement,
@@ -43,7 +43,7 @@ const initResourceError = (e: Event) => {
     path,
     errId: getErrorUid(`${subType}-${message}-${src}`)
   }
-  report(reportData)
+  lazyReportBatch(reportData)
 }
 
 const initJsError = (e: ErrorEvent) => {
@@ -68,7 +68,7 @@ const initJsError = (e: ErrorEvent) => {
     stack,
     errId: getErrorUid(`${subType}-${message}-${src}`)
   }
-  report(reportData)
+  lazyReportBatch(reportData)
 }
 
 const initCorsError = (e: ErrorEvent) => {
@@ -80,7 +80,7 @@ const initCorsError = (e: ErrorEvent) => {
     subType,
     message
   }
-  report(reportData)
+  lazyReportBatch(reportData)
 }
 
 const initErrorEventListener = () => {
@@ -117,7 +117,7 @@ const initErrorEventListener = () => {
         errId: getErrorUid(`'promise'-${e.reason.message}`)
       }
       // todo 发送错误信息
-      report(reportData)
+      lazyReportBatch(reportData)
     },
     true
   )

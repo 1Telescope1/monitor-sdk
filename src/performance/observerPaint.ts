@@ -1,5 +1,5 @@
 import { TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { PaintType } from '../types'
 
 export default function observerPaint() {
@@ -17,7 +17,7 @@ export default function observerPaint() {
         }
 
         // 发送数据 todo;
-        report(reportData)
+        lazyReportBatch(reportData)
       }
     }
   }

@@ -1,5 +1,5 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { report } from '../common/report'
+import { lazyReportBatch } from '../common/report'
 import { PaintType } from '../types'
 
 export default function observePageLoadTime() {
@@ -25,6 +25,6 @@ export default function observePageLoadTime() {
       duration: loadTime
     }
     // 发送数据
-    report(reportData)
+    lazyReportBatch(reportData)
   })
 }
