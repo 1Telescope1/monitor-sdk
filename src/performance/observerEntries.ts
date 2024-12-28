@@ -38,7 +38,8 @@ export function observerEvent() {
           resourceEntry.transferSize - resourceEntry.encodedBodySize, // 响应头部大小
         transferSize: resourceEntry.transferSize, // 请求内容大小
         resourceSize: resourceEntry.decodedBodySize, // 资源解压后的大小
-        startTime: resourceEntry.startTime // 资源开始加载的时间
+        startTime: resourceEntry.startTime, // 资源开始加载的时间
+        pageUrl: window.location.href // 页面地址
       }
       dataList.push(data)
       if (i === entries.length - 1) {
