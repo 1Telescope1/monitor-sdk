@@ -31,16 +31,17 @@ function overwriteFetch(): void {
     }
     return originalFetch(url, config)
       .then(res => {
+        reportData.status = res.status
         return res
       })
       .catch(err => {
+        reportData.status = err.status
         throw err
       })
       .finally(() => {
         const endTime = Date.now()
         reportData.endTime = endTime
         reportData.duration = endTime - startTime
-        reportData.status = 0
         reportData.success = false
         // todo 上报数据
         lazyReportBatch(reportData)
