@@ -61,7 +61,8 @@ module.exports = [
         clearInterval: "readonly",
         close: "readonly",
         fetch: "readonly",
-        Worker: "readonly"
+        Worker: "readonly",
+        URLSearchParams: "readonly"
       }
     },
     plugins: {

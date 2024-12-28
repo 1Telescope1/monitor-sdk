@@ -58,6 +58,8 @@ export type AjaxType = commonType & {
   url?: string
   method?: string
   success: boolean
+  pageUrl: string
+  params: string
 }
 
 /**

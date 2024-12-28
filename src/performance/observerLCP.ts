@@ -1,4 +1,4 @@
-import { TraceTypeEnum } from '../common/enum'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import { PaintType } from '../types'
 
@@ -12,7 +12,7 @@ export default function observerLCP() {
       const reportData: PaintType = {
         ...json,
         type: TraceTypeEnum.performance,
-        subType: entry.entryType,
+        subType: TraceSubTypeEnum.lcp,
         pageUrl: window.location.href
       }
       // 发送数据 todo;

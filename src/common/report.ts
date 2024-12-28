@@ -10,15 +10,19 @@ function isSupportSendBeacon() {
 
 const config = getConfig()
 
-let sendServe: any
-if (config.isImageUpload) {
-  sendServe = imgRequest
-} else {
-  if (isSupportSendBeacon() && config.isBeaconUpload) {
-    sendServe = beaconRequest
+const sendServe = (reportData: any) => {
+  let sendTraceServer: any
+
+  if (config.isImageUpload) {
+    sendTraceServer = imgRequest
   } else {
-    sendServe = xhrRequest
+    if (isSupportSendBeacon() && config.isBeaconUpload) {
+      sendTraceServer = beaconRequest
+    } else {
+      sendTraceServer = xhrRequest
+    }
   }
+  sendTraceServer(reportData)
 }
 
 export function report(data: any) {
@@ -59,11 +63,10 @@ export function lazyReportBatch(data: any) {
   if (dataCache.length && dataCache.length > config.batchSize) {
     reportData()
   } else {
-    setTimeout(reportData, 0)
     if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(reportData, { timeout: 800 })
+      window.requestIdleCallback(reportData, { timeout: 1000 })
     } else {
-      setTimeout(reportData, 800)
+      setTimeout(reportData, 1000)
     }
   }
 }
@@ -81,12 +84,7 @@ function xhrRequest(data: any) {
   xhr.setRequestHeader('Content-Type', 'application/json')
 
   const sendData = () => originalSend.call(xhr, data)
-
-  if (window.requestIdleCallback) {
-    window.requestIdleCallback(sendData, { timeout: 1000 })
-  } else {
-    setTimeout(sendData, 0)
-  }
+  sendData()
 }
 
 function beaconRequest(data: any) {

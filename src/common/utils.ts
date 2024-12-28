@@ -229,3 +229,15 @@ export const getOriginInfo = (): originInfoType => {
     navigationType: window.performance?.navigation.type || ''
   }
 }
+
+// URL查询字符串转换为JSON对象
+export function urlToJson(url: string) {
+  const params = new URLSearchParams(url.split('?')[1])
+  const json = {}
+  // @ts-ignore
+  for (const [key, value] of params) {
+    // @ts-ignore
+    json[key] = decodeURIComponent(value)
+  }
+  return JSON.stringify(json)
+}

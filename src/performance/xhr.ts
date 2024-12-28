@@ -1,5 +1,6 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
+import { urlToJson } from '../common/utils'
 import { AjaxType } from '../types'
 
 export const originalProto = XMLHttpRequest.prototype
@@ -37,10 +38,13 @@ function overwriteOpenAndSend() {
     this.addEventListener('loadstart', () => {
       this.startTime = Date.now()
     })
+
     const onLoaded = () => {
       this.endTime = Date.now()
       this.duration = (this.endTime ?? 0) - (this.startTime ?? 0)
       const { url, method, startTime, endTime, duration, status } = this
+      const params = (args[0] ? args[0] : urlToJson(url as string)) as string
+
       const reportData: AjaxType = {
         status,
         duration,
@@ -50,7 +54,9 @@ function overwriteOpenAndSend() {
         method: method?.toUpperCase(),
         type: TraceTypeEnum.performance,
         success: status >= 200 && status < 300,
-        subType: TraceSubTypeEnum.xhr
+        subType: TraceSubTypeEnum.xhr,
+        pageUrl: window.location.href,
+        params
       }
       // todo: 发送数据
       lazyReportBatch(reportData)

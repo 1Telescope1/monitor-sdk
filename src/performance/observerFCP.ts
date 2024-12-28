@@ -1,4 +1,4 @@
-import { TraceTypeEnum } from '../common/enum'
+import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import { PaintType } from '../types'
 
@@ -11,7 +11,7 @@ export default function observerFCP() {
         const reportData: PaintType = {
           ...json,
           type: TraceTypeEnum.performance,
-          subType: entry.entryType,
+          subType: TraceSubTypeEnum.fcp,
           pageUrl: window.location.href
         }
         // 发送数据 todo;

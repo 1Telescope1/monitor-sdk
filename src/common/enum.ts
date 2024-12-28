@@ -20,5 +20,9 @@ export enum TraceSubTypeEnum {
   react = 'react',
   vue = 'vue',
   routerChange = 'routerChange',
-  pv = 'pv'
+  pv = 'pv',
+  fcp = 'fcp',
+  fp = 'fp',
+  lcp = 'lcp',
+  fmp = 'fmp'
 }

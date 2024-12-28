@@ -1,5 +1,6 @@
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
+import { urlToJson } from '../common/utils'
 import { AjaxType } from '../types'
 
 const originalFetch: typeof window.fetch = window.fetch
@@ -9,6 +10,9 @@ function overwriteFetch(): void {
     url: any,
     config?: RequestInit
   ): Promise<Response> {
+    const params = (
+      config?.body ? config.body : urlToJson(url as string)
+    ) as string
     const startTime = Date.now()
     const urlString =
       typeof url === 'string' ? url : url instanceof URL ? url.href : url.url
@@ -21,7 +25,9 @@ function overwriteFetch(): void {
       duration: 0,
       status: 0,
       success: false,
-      method: config?.method || 'GET'
+      method: config?.method || 'GET',
+      pageUrl: window.location.href,
+      params
     }
     return originalFetch(url, config)
       .then(res => {
