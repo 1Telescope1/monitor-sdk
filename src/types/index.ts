@@ -117,6 +117,7 @@ export type PerformanceResourceType = commonType & {
 
 export type ErrorCommonType = {
   errId: string
+  state: any[]
 }
 
 export type ResourceErrorTarget = {
@@ -230,14 +231,17 @@ export type TargetInfoType = commonType & {
 export type whiteScreenType = commonType & {
   pageUrl: string
   timestamp: number
+  state: any[]
 }
 
 export type stutterStype = commonType & {
   pageUrl: string
   timestamp: number
+  state: any[]
 }
 
 export type CrashType = commonType & {
   pageUrl: string
   timestamp: number
+  state: any[]
 }

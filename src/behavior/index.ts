@@ -15,7 +15,7 @@ import {
 import BehaviorStore from './behaviorStore'
 import { proxyHash, proxyHistory, wrHistory } from './utils'
 
-class Behavior {
+export class Behavior {
   // 本地暂存数据在 Map 里 （也可以自己用对象来存储）
   public metrics: any
 
@@ -34,7 +34,7 @@ class Behavior {
     if (Behavior.instance) {
       return Behavior.instance
     }
-    this.maxBehaviorRecords = 100
+    this.maxBehaviorRecords = 25
     // 初始化行为追踪记录
     this.breadcrumbs = new BehaviorStore({
       maxBehaviorRecords: this.maxBehaviorRecords
@@ -138,6 +138,13 @@ class Behavior {
   }
 }
 
+let behaviorInstance: Behavior
+
+export const getBehaviour = () => {
+  return behaviorInstance
+}
+
 export default function initBehavior() {
-  new Behavior()
+  const behaviour = new Behavior()
+  behaviorInstance = behaviour
 }

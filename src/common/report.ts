@@ -39,20 +39,6 @@ export function report(data: any) {
 export function lazyReportBatch(data: any) {
   addCache(data)
   const dataCache = getCache()
-
-  if (
-    (data.type === 'error' && data.subType !== 'resource') ||
-    data.type === 'exception'
-  ) {
-    const state = window.$SDK?.Behaviour?.breadcrumbs?.state || []
-    const errData = {
-      state,
-      type: 'behavior',
-      subType: 'behavior-store'
-    }
-    addCache(errData)
-  }
-
   const reportData = () => {
     if (!dataCache.length) {
       return

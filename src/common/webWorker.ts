@@ -1,3 +1,4 @@
+import { getBehaviour } from '../behavior'
 import { CrashType } from '../types'
 import { getConfig } from './config'
 
@@ -37,11 +38,14 @@ onmessage = event => {
 }
 
 const reportError = () => {
+  const behavior = getBehaviour()
+  const state = behavior?.breadcrumbs?.state || []
   const data: CrashType = {
     type: 'exception',
     subType: 'crash',
     pageUrl: nowUrl,
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
+    state
   }
   const reportData = {
     userId: config.userId,

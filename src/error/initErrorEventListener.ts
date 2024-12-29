@@ -1,3 +1,4 @@
+import { getBehaviour } from '../behavior'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import {
@@ -32,6 +33,8 @@ const initResourceError = (e: Event) => {
   const message = ''
   const html = target.outerHTML
   const path = getPathToElement(target)
+  const behavior = getBehaviour()
+  const state = behavior?.breadcrumbs?.state || []
   const reportData: ResourceErrorType = {
     type,
     subType,
@@ -41,7 +44,8 @@ const initResourceError = (e: Event) => {
     src,
     pageUrl: window.location.href,
     path,
-    errId: getErrorUid(`${subType}-${message}-${src}`)
+    errId: getErrorUid(`${subType}-${message}-${src}`),
+    state
   }
   lazyReportBatch(reportData)
 }
@@ -57,6 +61,8 @@ const initJsError = (e: ErrorEvent) => {
   } = e
   const subType = TraceSubTypeEnum.js
   const stack = parseStackFrames(error)
+  const behavior = getBehaviour()
+  const state = behavior?.breadcrumbs?.state || []
   const reportData: JsErrorType = {
     columnNo,
     lineNo,
@@ -66,7 +72,8 @@ const initJsError = (e: ErrorEvent) => {
     subType,
     pageUrl: window.location.href,
     stack,
-    errId: getErrorUid(`${subType}-${message}-${src}`)
+    errId: getErrorUid(`${subType}-${message}-${src}`),
+    state
   }
   lazyReportBatch(reportData)
 }
@@ -108,13 +115,16 @@ const initErrorEventListener = () => {
     'unhandledrejection',
     (e: PromiseRejectionEvent) => {
       const stack = parseStackFrames(e.reason)
+      const behavior = getBehaviour()
+      const state = behavior?.breadcrumbs?.state || []
       const reportData: PromiseErrorType = {
         type: TraceTypeEnum.error,
         subType: TraceSubTypeEnum.promise,
         message: e.reason.message,
         stack,
         pageUrl: window.location.href,
-        errId: getErrorUid(`'promise'-${e.reason.message}`)
+        errId: getErrorUid(`'promise'-${e.reason.message}`),
+        state
       }
       // todo 发送错误信息
       lazyReportBatch(reportData)
