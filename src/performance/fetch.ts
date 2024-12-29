@@ -27,7 +27,8 @@ function overwriteFetch(): void {
       success: false,
       method: config?.method || 'GET',
       pageUrl: window.location.href,
-      params
+      params,
+      timestamp: new Date().getTime()
     }
     return originalFetch(url, config)
       .then(res => {

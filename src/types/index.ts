@@ -27,6 +27,7 @@ export type reportDataType = {
 type commonType = {
   type: string // 类型
   subType: string // 一级类型
+  timestamp: number
 }
 
 export type PaintType = commonType & {
@@ -118,6 +119,7 @@ export type PerformanceResourceType = commonType & {
 export type ErrorCommonType = {
   errId: string
   state: any[]
+  timestamp: number
 }
 
 export type ResourceErrorTarget = {

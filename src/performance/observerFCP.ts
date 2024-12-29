@@ -12,7 +12,8 @@ export default function observerFCP() {
           ...json,
           type: TraceTypeEnum.performance,
           subType: TraceSubTypeEnum.fcp,
-          pageUrl: window.location.href
+          pageUrl: window.location.href,
+          timestamp: new Date().getTime()
         }
         // 发送数据 todo;
         lazyReportBatch(reportData)

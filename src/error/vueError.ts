@@ -1,3 +1,4 @@
+import { getBehaviour } from '../behavior'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import {
@@ -24,6 +25,8 @@ const initVueError = (app: Vue) => {
     const message = err.message
     const stack = parseStackFrames(err)
     const pageUrl = window.location.href
+    const behavior = getBehaviour()
+    const state = behavior?.breadcrumbs?.state || []
     const reportData: VueErrorType = {
       type,
       subType,
@@ -33,7 +36,9 @@ const initVueError = (app: Vue) => {
       info,
       componentName,
       url,
-      errId: getErrorUid(`${subType}-${message}-${url}`)
+      errId: getErrorUid(`${subType}-${message}-${url}`),
+      state,
+      timestamp: new Date().getTime()
     }
     lazyReportBatch(reportData)
   }

@@ -13,7 +13,8 @@ export default function observerPaint() {
           ...json,
           type: TraceTypeEnum.performance,
           subType: TraceSubTypeEnum.fp,
-          pageUrl: window.location.href
+          pageUrl: window.location.href,
+          timestamp: new Date().getTime()
         }
 
         // 发送数据 todo;

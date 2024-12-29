@@ -45,7 +45,8 @@ const initResourceError = (e: Event) => {
     pageUrl: window.location.href,
     path,
     errId: getErrorUid(`${subType}-${message}-${src}`),
-    state
+    state,
+    timestamp: new Date().getTime()
   }
   lazyReportBatch(reportData)
 }
@@ -73,7 +74,8 @@ const initJsError = (e: ErrorEvent) => {
     pageUrl: window.location.href,
     stack,
     errId: getErrorUid(`${subType}-${message}-${src}`),
-    state
+    state,
+    timestamp: new Date().getTime()
   }
   lazyReportBatch(reportData)
 }
@@ -120,11 +122,12 @@ const initErrorEventListener = () => {
       const reportData: PromiseErrorType = {
         type: TraceTypeEnum.error,
         subType: TraceSubTypeEnum.promise,
-        message: e.reason.message,
+        message: e.reason.message || e.reason,
         stack,
         pageUrl: window.location.href,
         errId: getErrorUid(`'promise'-${e.reason.message}`),
-        state
+        state,
+        timestamp: new Date().getTime()
       }
       // todo 发送错误信息
       lazyReportBatch(reportData)

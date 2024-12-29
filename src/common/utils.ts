@@ -47,15 +47,19 @@ export function getPathToElement(element: any) {
   const path = []
   let currentElement = element
 
-  while (currentElement.tagName.toLowerCase() !== 'body') {
-    const parentNode = currentElement.parentNode
-    const children = Array.from(parentNode.children)
-    const nodeIndex = children.indexOf(currentElement) + 1
-    const name = `${currentElement.tagName.toLowerCase()}:nth-child(${nodeIndex})`
-    // 将当前元素的标签和其兄弟索引添加到路径数组中
-    path.unshift(name)
-    // 移动到父元素
-    currentElement = parentNode
+  try {
+    while (currentElement?.tagName?.toLowerCase() !== 'body') {
+      const parentNode = currentElement.parentNode
+      const children = Array.from(parentNode?.children)
+      const nodeIndex = children.indexOf(currentElement) + 1
+      const name = `${currentElement.tagName.toLowerCase()}:nth-child(${nodeIndex})`
+      // 将当前元素的标签和其兄弟索引添加到路径数组中
+      path.unshift(name)
+      // 移动到父元素
+      currentElement = parentNode
+    }
+  } catch (error) {
+    console.log(error)
   }
   // 最后添加 body 标签
   path.unshift('body')

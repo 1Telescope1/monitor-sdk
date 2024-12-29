@@ -7,15 +7,18 @@ import {
 } from '../common/utils'
 import { ReactErrorType } from '../types'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
+import { getBehaviour } from '../behavior'
 
 interface ErrorBoundaryProps {
-  fallback?: ReactNode // ReactNode 表示任意有效的 React 内容
+  Fallback: ReactNode // ReactNode 表示任意有效的 React 内容
   children: ReactNode
 }
 
 interface ErrorBoundaryState {
   hasError: boolean
 }
+
+let err = {}
 
 class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
@@ -33,6 +36,8 @@ class ErrorBoundary extends React.Component<
     const pageUrl = window.location.href
     const errId = getErrorUid(`${subType}-${message}-${url}`)
     const info = error.message
+    const behavior = getBehaviour()
+    const state = behavior?.breadcrumbs?.state || []
     const reportData: ReactErrorType = {
       type,
       subType,
@@ -42,16 +47,19 @@ class ErrorBoundary extends React.Component<
       errId,
       componentName,
       info,
-      url
+      url,
+      state,
+      timestamp: new Date().getTime()
     }
+    err = reportData
     lazyReportBatch(reportData)
   }
 
   render() {
-    const { fallback } = this.props
-
+    const { Fallback } = this.props    
     if (this.state.hasError) {
-      return fallback || 'Error'
+      // @ts-ignore
+      return <Fallback error={err}/>
     }
 
     return this.props.children

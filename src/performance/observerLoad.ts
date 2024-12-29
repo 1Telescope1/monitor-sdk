@@ -22,7 +22,8 @@ export default function observePageLoadTime() {
       subType: TraceSubTypeEnum.load,
       pageUrl: window.location.href,
       startTime: startTimestamp,
-      duration: loadTime
+      duration: loadTime,
+      timestamp: new Date().getTime()
     }
     // 发送数据
     lazyReportBatch(reportData)

@@ -39,14 +39,16 @@ export function observerEvent() {
         transferSize: resourceEntry.transferSize, // 请求内容大小
         resourceSize: resourceEntry.decodedBodySize, // 资源解压后的大小
         startTime: resourceEntry.startTime, // 资源开始加载的时间
-        pageUrl: window.location.href // 页面地址
+        pageUrl: window.location.href, // 页面地址
+        timestamp: new Date().getTime()
       }
       dataList.push(data)
       if (i === entries.length - 1) {
         const reportData: resourceType = {
           type: TraceTypeEnum.performance, // 类型
           subType: TraceSubTypeEnum.resource, // 类型
-          resourceList: dataList
+          resourceList: dataList,
+          timestamp: new Date().getTime()
         }
         lazyReportBatch(reportData)
       }

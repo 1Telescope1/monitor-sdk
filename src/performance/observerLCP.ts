@@ -13,7 +13,8 @@ export default function observerLCP() {
         ...json,
         type: TraceTypeEnum.performance,
         subType: TraceSubTypeEnum.lcp,
-        pageUrl: window.location.href
+        pageUrl: window.location.href,
+        timestamp: new Date().getTime()
       }
       // 发送数据 todo;
       lazyReportBatch(reportData)
