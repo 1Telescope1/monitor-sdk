@@ -28,13 +28,13 @@ class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     this.setState({ hasError: true })
-    const { componentName, url } = getReactComponentInfo(errorInfo)
+    const { componentName, url: src } = getReactComponentInfo(errorInfo)
     const type = TraceTypeEnum.error
     const subType = TraceSubTypeEnum.react
     const message = error.message
     const stack = parseStackFrames(error)
     const pageUrl = window.location.href
-    const errId = getErrorUid(`${subType}-${message}-${url}`)
+    const errId = getErrorUid(`${subType}-${message}-${src}`)
     const info = error.message
     const behavior = getBehaviour()
     const state = behavior?.breadcrumbs?.state || []
@@ -47,7 +47,7 @@ class ErrorBoundary extends React.Component<
       errId,
       componentName,
       info,
-      url,
+      src,
       state,
       timestamp: new Date().getTime()
     }

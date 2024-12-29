@@ -163,7 +163,7 @@ export type VueErrorType = commonType &
     pageUrl: string
     info: string
     componentName: string
-    url: string
+    src: string
   }
 
 export type ReactErrorType = VueErrorType

@@ -19,7 +19,7 @@ export interface Vue {
 const initVueError = (app: Vue) => {
   app.config.errorHandler = (err: Error, vm: any, info: string) => {
     console.error(err)
-    const { componentName, url } = getVueComponentInfo(vm)
+    const { componentName, url: src } = getVueComponentInfo(vm)
     const type = TraceTypeEnum.error
     const subType = TraceSubTypeEnum.vue
     const message = err.message
@@ -35,8 +35,8 @@ const initVueError = (app: Vue) => {
       pageUrl,
       info,
       componentName,
-      url,
-      errId: getErrorUid(`${subType}-${message}-${url}`),
+      src,
+      errId: getErrorUid(`${subType}-${message}-${src}`),
       state,
       timestamp: new Date().getTime()
     }
