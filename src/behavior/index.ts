@@ -1,13 +1,16 @@
+import { record } from 'rrweb'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import {
   afterLoad,
   getOriginInfo,
   getPageInfo,
-  getPathToElement
+  getPathToElement,
+  zip
 } from '../common/utils'
 import {
   PvInfoType,
+  RecordEventScope,
   RouterChangeType,
   TargetInfoType,
   customAnalyticsData
@@ -138,13 +141,73 @@ export class Behavior {
   }
 }
 
+export class RecordScreen {
+  public eventList: RecordEventScope[] = [
+    { scope: `${Date.now()}-`, eventList: [] }
+  ]
+  public scopeScreenTime = 3000
+  public screenCnt = 3
+  private closeCallback: ReturnType<typeof record>
+
+  constructor() {
+    this.init()
+  }
+
+  init = () => {
+    this.closeCallback = record({
+      emit: (event, isCheckout) => {
+        const lastEvents = this.eventList[this.eventList.length - 1]
+        lastEvents.eventList.push(event)
+        if (isCheckout) {
+          if (this.eventList.length > 0) {
+            this.eventList[this.eventList.length - 1].scope =
+              lastEvents.scope + Date.now()
+          }
+          if (this.eventList.length >= this.screenCnt) {
+            this.eventList.shift()
+          }
+          this.eventList.push({ scope: `${Date.now()}-`, eventList: [] })
+        }
+      },
+      recordCanvas: true,
+      checkoutEveryNms: this.scopeScreenTime // 每5s重新制作快照
+    })
+  }
+
+  close() {
+    this.closeCallback?.()
+    this.closeCallback = undefined
+  }
+}
+
 let behaviorInstance: Behavior
+let recordScreenInstance: RecordScreen
 
 export const getBehaviour = () => {
   return behaviorInstance
 }
 
+export const getRecordScreen = () => {
+  return recordScreenInstance
+}
+
+export const getRecordScreenData = () => {
+  const recordScreen = getRecordScreen()
+  const eventList = recordScreen?.eventList.slice(-2) || []
+  const data = eventList.reduce(
+    (pre, cur) => {
+      return [...pre, ...cur.eventList]
+    },
+    [] as RecordEventScope['eventList']
+  )
+  const eventData = zip(data.flat())
+
+  return eventData
+}
+
 export default function initBehavior() {
   const behaviour = new Behavior()
   behaviorInstance = behaviour
+  const recordScreen = new RecordScreen()
+  recordScreenInstance = recordScreen
 }

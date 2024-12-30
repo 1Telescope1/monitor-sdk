@@ -1,4 +1,4 @@
-import { getBehaviour } from '../behavior'
+import { getBehaviour, getRecordScreenData } from '../behavior'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import {
@@ -64,6 +64,7 @@ const initJsError = (e: ErrorEvent) => {
   const stack = parseStackFrames(error)
   const behavior = getBehaviour()
   const state = behavior?.breadcrumbs?.state || []
+  const eventData = getRecordScreenData()
   const reportData: JsErrorType = {
     columnNo,
     lineNo,
@@ -75,7 +76,8 @@ const initJsError = (e: ErrorEvent) => {
     stack,
     errId: getErrorUid(`${subType}-${message}-${src}`),
     state,
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
+    eventData
   }
   lazyReportBatch(reportData)
 }
@@ -119,6 +121,7 @@ const initErrorEventListener = () => {
       const stack = parseStackFrames(e.reason)
       const behavior = getBehaviour()
       const state = behavior?.breadcrumbs?.state || []
+      const eventData = getRecordScreenData()
       const reportData: PromiseErrorType = {
         type: TraceTypeEnum.error,
         subType: TraceSubTypeEnum.promise,
@@ -127,7 +130,8 @@ const initErrorEventListener = () => {
         pageUrl: window.location.href,
         errId: getErrorUid(`'promise'-${e.reason.message}`),
         state,
-        timestamp: new Date().getTime()
+        timestamp: new Date().getTime(),
+        eventData
       }
       // todo 发送错误信息
       lazyReportBatch(reportData)

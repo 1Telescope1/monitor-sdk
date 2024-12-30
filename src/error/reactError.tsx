@@ -7,7 +7,7 @@ import {
 } from '../common/utils'
 import { ReactErrorType } from '../types'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
-import { getBehaviour } from '../behavior'
+import { getBehaviour, getRecordScreenData } from '../behavior'
 
 interface ErrorBoundaryProps {
   Fallback: ReactNode // ReactNode 表示任意有效的 React 内容
@@ -38,6 +38,7 @@ class ErrorBoundary extends React.Component<
     const info = error.message
     const behavior = getBehaviour()
     const state = behavior?.breadcrumbs?.state || []
+    const eventData = getRecordScreenData()
     const reportData: ReactErrorType = {
       type,
       subType,
@@ -49,7 +50,8 @@ class ErrorBoundary extends React.Component<
       info,
       src,
       state,
-      timestamp: new Date().getTime()
+      timestamp: new Date().getTime(),
+      eventData
     }
     err = reportData
     lazyReportBatch(reportData)

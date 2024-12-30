@@ -4,6 +4,7 @@ import Behavior from './behavior'
 import Exception from './exception'
 import Performance from './performance'
 import Error from './error'
+import { unzipRecordscreen } from './common/utils'
 
 function init(options?: ConfigType) {
   setConfig(options)
@@ -15,5 +16,6 @@ export default {
   Performance,
   Error,
   Behavior,
-  Exception
+  Exception,
+  unzipRecordscreen
 }

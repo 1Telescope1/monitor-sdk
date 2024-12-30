@@ -147,6 +147,7 @@ export type JsErrorType = commonType &
     columnNo?: number // 错误列号
     stack: any[] // 错误堆栈
     pageUrl: string // 页面路径
+    eventData: string
   }
 
 export type PromiseErrorType = commonType &
@@ -154,6 +155,7 @@ export type PromiseErrorType = commonType &
     message: string | Event // 错误信息
     stack?: any[] // 错误堆栈
     pageUrl: string // 页面路径
+    eventData: string
   }
 
 export type VueErrorType = commonType &
@@ -164,6 +166,7 @@ export type VueErrorType = commonType &
     info: string
     componentName: string
     src: string
+    eventData: string
   }
 
 export type ReactErrorType = VueErrorType
@@ -246,4 +249,9 @@ export type CrashType = commonType & {
   pageUrl: string
   timestamp: number
   state: any[]
+}
+
+export type RecordEventScope = {
+  scope: string
+  eventList: any[]
 }
