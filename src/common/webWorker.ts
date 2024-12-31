@@ -1,4 +1,4 @@
-import { getBehaviour } from '../behavior'
+import { getBehaviour, getRecordScreenData } from '../behavior'
 import { CrashType } from '../types'
 import { getConfig } from './config'
 
@@ -40,16 +40,18 @@ onmessage = event => {
 const reportError = () => {
   const behavior = getBehaviour()
   const state = behavior?.breadcrumbs?.state || []
+  const eventData = getRecordScreenData()
   const data: CrashType = {
     type: 'exception',
     subType: 'crash',
     pageUrl: nowUrl,
     timestamp: new Date().getTime(),
-    state
+    state,
+    eventData
   }
   const reportData = {
     userId: config.userId,
-    data: { ...data }
+    data: [data]
   }
   fetch(config.url, {
     method: 'POST',

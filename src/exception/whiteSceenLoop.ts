@@ -1,4 +1,4 @@
-import { getBehaviour } from '../behavior'
+import { getBehaviour, getRecordScreenData } from '../behavior'
 import { getConfig } from '../common/config'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
@@ -82,12 +82,14 @@ function whiteScreen() {
       if (nowTime - initTime >= whiteScreenTime) {
         const behavior = getBehaviour()
         const state = behavior?.breadcrumbs?.state || []
+        const eventData = getRecordScreenData()
         const reportData: whiteScreenType = {
           type: TraceTypeEnum.exception,
           subType: TraceSubTypeEnum.whiteScreen,
           pageUrl: window.location.href,
           timestamp: nowTime,
-          state
+          state,
+          eventData
         }
         console.error('页面白屏')
         lazyReportBatch(reportData)

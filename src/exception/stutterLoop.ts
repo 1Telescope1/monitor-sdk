@@ -1,4 +1,4 @@
-import { getBehaviour } from '../behavior'
+import { getBehaviour, getRecordScreenData } from '../behavior'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import { stutterStype } from '../types'
@@ -18,12 +18,14 @@ function trackFPS(timestamp: number) {
     if (frameCount <= minFPS) {
       const behavior = getBehaviour()
       const state = behavior?.breadcrumbs?.state || []
+      const eventData = getRecordScreenData()
       const reportData: stutterStype = {
         type: TraceTypeEnum.exception,
         subType: TraceSubTypeEnum.stutter,
         pageUrl: window.location.href,
         timestamp: new Date().getTime(),
-        state
+        state,
+        eventData
       }
       lazyReportBatch(reportData)
     }

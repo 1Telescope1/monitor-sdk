@@ -237,18 +237,21 @@ export type whiteScreenType = commonType & {
   pageUrl: string
   timestamp: number
   state: any[]
+  eventData: string
 }
 
 export type stutterStype = commonType & {
   pageUrl: string
   timestamp: number
   state: any[]
+  eventData: string
 }
 
 export type CrashType = commonType & {
   pageUrl: string
   timestamp: number
   state: any[]
+  eventData: string
 }
 
 export type RecordEventScope = {
