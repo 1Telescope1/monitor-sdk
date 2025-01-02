@@ -1,6 +1,7 @@
 import pako from 'pako'
 import { Base64 } from 'js-base64'
 import { PageInformation, originInfoType } from '../types'
+import { WebPageLoad } from './enum'
 
 export function deepClone(obj: any, hash = new WeakMap()) {
   if (obj == null) {
@@ -200,6 +201,7 @@ export const getPageInfo = (): PageInformation => {
   } = window.location
   const { width, height } = window.screen
   const { language, userAgent } = navigator
+  const { type } = performance.navigation
 
   return {
     host,
@@ -217,7 +219,8 @@ export const getPageInfo = (): PageInformation => {
     winScreen: `${width}x${height}`,
     docScreen: `${document.documentElement.clientWidth || document.body.clientWidth}x${
       document.documentElement.clientHeight || document.body.clientHeight
-    }`
+    }`,
+    pageLoadType: WebPageLoad[type]
   }
 }
 

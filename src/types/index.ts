@@ -191,6 +191,8 @@ export type PageInformation = {
   winScreen: string
   // 文档宽高 (eg:1388x937)   文档宽高意为当前页面显示的实际宽高（有的同学喜欢半屏显示）
   docScreen: string
+  // 页面加载方式
+  pageLoadType: string
 }
 
 // 这里参考了 谷歌GA 的自定义埋点上报数据维度结构

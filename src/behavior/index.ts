@@ -61,7 +61,13 @@ export class Behavior {
   initCustomerHandler = (): Function => {
     const handler = (reportData: customAnalyticsData) => {
       // 自定义埋点的信息一般立即上报
-      lazyReportBatch(reportData)
+      const data = {
+        ...reportData,
+        type: TraceTypeEnum.behavior,
+        subType: TraceSubTypeEnum.tracker,
+        timestamp: new Date().getTime()
+      }
+      lazyReportBatch(data)
     }
     return handler
   }
@@ -127,6 +133,7 @@ export class Behavior {
         timestamp: new Date().getTime(),
         textContent: target.textContent
       }
+      lazyReportBatch(behavior)
       this.breadcrumbs.push(behavior)
     }
     mountList.forEach(eventType => {
