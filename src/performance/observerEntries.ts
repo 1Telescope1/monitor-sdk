@@ -1,3 +1,4 @@
+import { getConfig } from '../common/config'
 import { TraceSubTypeEnum, TraceTypeEnum } from '../common/enum'
 import { lazyReportBatch } from '../common/report'
 import { PerformanceResourceType, resourceType } from '../types'
@@ -14,12 +15,17 @@ export default function observerEntries() {
   }
 }
 export function observerEvent() {
+  const config = getConfig()
   const entryHandler = (list: PerformanceObserverEntryList) => {
     const dataList: PerformanceResourceType[] = []
     const entries = list.getEntries()
     for (let i = 0; i < entries.length; i++) {
       const resourceEntry = entries[i] as PerformanceResourceTiming
       if (resourceEntry.initiatorType === 'xmlhttprequest') {
+        continue
+      }
+      // 避免sdk自己发的请求又被上报无限循环
+      if (resourceEntry.name === config.url) {
         continue
       }
       const data: PerformanceResourceType = {

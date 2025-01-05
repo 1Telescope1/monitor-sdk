@@ -12,7 +12,7 @@ const config: ConfigType = {
 }
 
 export function setConfig(options: ConfigType = config) {
-  for (const key in config) {
+  for (const key in options) {
     if (options[key]) {
       config[key] = options[key]
     }

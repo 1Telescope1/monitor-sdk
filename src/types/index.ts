@@ -7,7 +7,11 @@ export type ConfigType = {
   isAjax: boolean
   containerElements: string[]
   skeletonElements: string[]
-  [key: string]: string | boolean | number | string[] // 添加索引签名
+  reportBefore?: any
+  reportAfter?: any
+  reportSuccess?: any
+  reportFail?: any
+  [key: string]: string | boolean | number | string[] | any // 添加索引签名
 }
 
 export type reportDataType = {

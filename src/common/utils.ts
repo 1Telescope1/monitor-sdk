@@ -29,6 +29,7 @@ export function deepClone(obj: any, hash = new WeakMap()) {
       cloneObj[key] = deepClone(obj[key], hash)
     }
   }
+  return cloneObj
 }
 
 export function generateUniqueId() {
