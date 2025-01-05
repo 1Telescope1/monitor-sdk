@@ -3,9 +3,8 @@ export type ConfigType = {
   projectName: string
   appId: string
   userId: string
-  isImageUpload: boolean
   batchSize: number
-  isBeaconUpload: boolean
+  isAjax: boolean
   containerElements: string[]
   skeletonElements: string[]
   [key: string]: string | boolean | number | string[] // 添加索引签名

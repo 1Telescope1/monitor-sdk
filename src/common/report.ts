@@ -1,5 +1,6 @@
 import { getConfig } from './config'
 import { addCache, getCache, clearCache } from './cache'
+import { isObjectSize } from './utils'
 
 const originalOpen = XMLHttpRequest.prototype.open
 const originalSend = XMLHttpRequest.prototype.send
@@ -9,30 +10,29 @@ function isSupportSendBeacon() {
 }
 
 const config = getConfig()
-
 const sendServe = (reportData: any) => {
-  let sendTraceServer: any
+  let sendType = 'xhr'
+  let sendTraceServer = xhrRequest
+  const ObjectSize = isObjectSize(reportData)
 
-  if (config.isImageUpload) {
+  if (config.isAjax) {
+    sendTraceServer = xhrRequest
+    sendType = 'xhr'
+  } else if (isSupportSendBeacon() && ObjectSize < 60) {
+    // searchBeacon 最大支持64kb数据
+    sendTraceServer = beaconRequest
+    sendType = 'beacon'
+  } else if (ObjectSize < 2) {
+    // 图片最大支持2kb数据
     sendTraceServer = imgRequest
-  } else {
-    if (isSupportSendBeacon() && config.isBeaconUpload) {
-      sendTraceServer = beaconRequest
-    } else {
-      sendTraceServer = xhrRequest
-    }
+    sendType = 'img'
   }
-  sendTraceServer(reportData)
-}
-
-export function report(data: any) {
-  const reportData = JSON.stringify({
+  reportData = {
+    data: reportData,
     userId: config.userId,
-    data: {
-      ...data
-    }
-  })
-  sendServe(reportData)
+    sendType
+  }
+  sendTraceServer(JSON.stringify(reportData))
 }
 
 // 批量上报数据
@@ -43,7 +43,7 @@ export function lazyReportBatch(data: any) {
     if (!dataCache.length) {
       return
     }
-    report(dataCache)
+    sendServe(dataCache)
     clearCache()
   }
   if (dataCache.length && dataCache.length > config.batchSize) {

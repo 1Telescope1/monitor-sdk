@@ -320,3 +320,14 @@ export function unzip(b64Data: string) {
 export function unzipRecordscreen(recordscreen: string) {
   return unzip(recordscreen)
 }
+
+/**
+ * 获取对象kb
+ * @param object 源对象
+ */
+export function isObjectSize(object: object): number {
+  const serializedObject = JSON.stringify(object)
+  const sizeInBytes = new TextEncoder().encode(serializedObject).length
+  const sizeInKB = sizeInBytes / 1024
+  return sizeInKB
+}

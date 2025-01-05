@@ -5,8 +5,7 @@ const config: ConfigType = {
   projectName: 'monitor',
   appId: '123456',
   userId: '123456',
-  isImageUpload: false,
-  isBeaconUpload: false,
+  isAjax: false,
   batchSize: 5,
   containerElements: ['html', 'body', '#app', '#root'],
   skeletonElements: []

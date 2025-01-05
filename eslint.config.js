@@ -62,7 +62,8 @@ module.exports = [
         close: "readonly",
         fetch: "readonly",
         Worker: "readonly",
-        URLSearchParams: "readonly"
+        URLSearchParams: "readonly" ,
+        TextEncoder: "readonly",
       }
     },
     plugins: {
