@@ -1,6 +1,6 @@
 import { setConfig } from './common/config'
 import { ConfigType } from './types'
-import Behavior from './behavior'
+import Behavior, { getBehaviour } from './behavior'
 import Exception from './exception'
 import Performance from './performance'
 import Error from './error'
@@ -17,5 +17,6 @@ export default {
   Error,
   Behavior,
   Exception,
-  unzipRecordscreen
+  unzipRecordscreen,
+  getBehaviour
 }
