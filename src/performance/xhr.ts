@@ -56,7 +56,8 @@ function overwriteOpenAndSend() {
         success: status >= 200 && status < 300,
         subType: TraceSubTypeEnum.xhr,
         pageUrl: window.location.href,
-        params
+        params,
+        timestamp: new Date().getTime()
       }
       // todo: 发送数据
       lazyReportBatch(reportData)

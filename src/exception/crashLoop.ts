@@ -1,8 +1,10 @@
-import workerModule from '../common/webWorker.ts?worker'
-
 export default function crashLoop() {
   if (window.Worker) {
-    const worker = new workerModule()
+    // @ts-ignore
+    const worker = new Worker(
+      new URL('../common/webWorker.ts', import.meta.url),
+      { type: 'module' }
+    )
     // 监听 Web Worker 的心跳消息
     worker.onmessage = (event: any) => {
       const { type } = event.data
