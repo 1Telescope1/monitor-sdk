@@ -116,6 +116,7 @@ export type PerformanceResourceType = commonType & {
   /** 类型，通常用于描述性能记录的类型，如 "performance" */
   type: string
 
+  /** 页面路径" */
   pageUrl: string
 }
 

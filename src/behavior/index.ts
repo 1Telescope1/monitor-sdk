@@ -85,7 +85,6 @@ export class Behavior {
         timestamp: new Date().getTime(),
         pageTime: Date.now() - oldDate
       }
-      console.log(behavior, e.type)
 
       this.breadcrumbs.push(behavior)
     }
