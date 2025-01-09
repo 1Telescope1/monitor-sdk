@@ -47,7 +47,6 @@ const sendServe = (reportData: any) => {
     .finally(() => {
       console.log('埋点上报----', response.data)
       config.reportAfter && config.reportAfter(response.data)
-      clearCache()
     })
 }
 
@@ -61,6 +60,7 @@ export function lazyReportBatch(data: any) {
       return
     }
     sendServe(dataCache)
+    clearCache()
   }
 
   if (dataCache.length && dataCache.length > config.batchSize) {

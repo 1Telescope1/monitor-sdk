@@ -16,16 +16,17 @@ export default function observerEntries() {
 }
 export function observerEvent() {
   const config = getConfig()
+  const url = config.url
+  const parsedUrl = new URL(url)
+  const host = parsedUrl.host
   const entryHandler = (list: PerformanceObserverEntryList) => {
     const dataList: PerformanceResourceType[] = []
     const entries = list.getEntries()
     for (let i = 0; i < entries.length; i++) {
       const resourceEntry = entries[i] as PerformanceResourceTiming
-      if (resourceEntry.initiatorType === 'xmlhttprequest') {
-        continue
-      }
+
       // 避免sdk自己发的请求又被上报无限循环
-      if (resourceEntry.name === config.url) {
+      if (resourceEntry.name.includes(host)) {
         continue
       }
       const data: PerformanceResourceType = {
