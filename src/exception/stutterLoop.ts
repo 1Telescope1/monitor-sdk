@@ -48,8 +48,6 @@ function trackFPS(timestamp: number) {
 export default function stutterLoop() {
   requestAnimationFrame(trackFPS)
   document.addEventListener('visibilitychange', () => {
-    console.log(document.hidden, frameCount, 'frameCount')
-
     if (document.hidden) {
       frameCount = 1000
       lastFrameTime = 0

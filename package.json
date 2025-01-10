@@ -1,16 +1,39 @@
 {
-  "name": "monitor-sdk",
+  "name": "@telescope/monitor-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "A lightweight JavaScript SDK for monitoring web application performance and errors.",
+  "author": "telescope <2298908190@qq.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1Telescope1/monitor-sdk.git"
+  },
+  "homepage": "https://github.com/1Telescope1/monitor-sdk",
+  "bugs": {
+    "url": "https://github.com/1Telescope1/monitor-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "monitoring",
+    "sdk",
+    "javascript",
+    "performance",
+    "error-tracking"
+  ],
   "main": "index.js",
+  "files": [
+    "lib/**",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
   },
-  "author": "sishi <9987574+shen-qun-deng@user.noreply.gitee.com>",
-  "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
@@ -41,5 +64,7 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
-  "repository": "https://github.com/1Telescope1/monitor-sdk.git"
+  "dependencies": {
+    "rollup-plugin-terser": "^7.0.2"
+  }
 }
