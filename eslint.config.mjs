@@ -1,10 +1,10 @@
 // 引入必要的 ESLint 插件和解析器
-const js = require("@eslint/js") // ESLint 的基础 JS 配置
-const tsPlugin = require("@typescript-eslint/eslint-plugin") // TypeScript ESLint 插件
-const tsParser = require("@typescript-eslint/parser") // TypeScript 解析器
-const prettierPlugin = require("eslint-plugin-prettier") // Prettier 插件，用于格式化代码
+import js from "@eslint/js"; // ESLint 的基础 JS 配置
+import tsPlugin from "@typescript-eslint/eslint-plugin"; // TypeScript ESLint 插件
+import tsParser from "@typescript-eslint/parser"; // TypeScript 解析器
+import prettierPlugin from "eslint-plugin-prettier"; // Prettier 插件，用于格式化代码
 
-module.exports = [
+export default [
   // 基本的 ESLint 推荐配置
   js.configs.recommended,
 
@@ -15,7 +15,7 @@ module.exports = [
       parser: tsParser, // 使用 TypeScript 解析器
       parserOptions: {
         ecmaVersion: "latest", // 使用最新的 ECMAScript 版本
-        sourceType: "module" // 代码类型设为 module 以支持 import/export 语法
+        sourceType: "module", // 代码类型设为 module 以支持 import/export 语法
       },
       globals: {
         // 手动声明一些浏览器中的全局对象为只读，避免 no-undef 报错
@@ -62,14 +62,14 @@ module.exports = [
         close: "readonly",
         fetch: "readonly",
         Worker: "readonly",
-        URLSearchParams: "readonly" ,
+        URLSearchParams: "readonly",
         TextEncoder: "readonly",
-        Blob: "readonly"
-      }
+        Blob: "readonly",
+      },
     },
     plugins: {
       "@typescript-eslint": tsPlugin, // 启用 TypeScript ESLint 插件
-      prettier: prettierPlugin // 启用 Prettier 插件
+      prettier: prettierPlugin, // 启用 Prettier 插件
     },
     rules: {
       // 自定义 ESLint 规则
@@ -87,8 +87,8 @@ module.exports = [
           trailingComma: "none", // 禁止使用拖尾逗号
           arrowParens: "avoid", // 单参数箭头函数不使用括号
           singleQuote: true, // 使用单引号
-          endOfLine: "auto" // 根据文件的换行符自动调整
-        }
+          endOfLine: "auto", // 根据文件的换行符自动调整
+        },
       ],
       // 其他常用代码规范规则
       curly: ["error", "all"], // 所有控制语句都需加括号
@@ -99,7 +99,7 @@ module.exports = [
       "no-duplicate-imports": "error", // 禁止重复导入相同模块
       "no-multi-spaces": "error", // 禁止多个空格
       // "space-before-function-paren": ["error", "never"], // 函数括号前不允许有空格
-      "comma-dangle": ["error", "never"] // 禁止使用拖尾逗号
-    }
-  }
-]
+      "comma-dangle": ["error", "never"], // 禁止使用拖尾逗号
+    },
+  },
+];

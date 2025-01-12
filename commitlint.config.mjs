@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // 继承常规的提交信息规则
   extends: ["@commitlint/config-conventional"],
 
