@@ -73,6 +73,9 @@ export function getPathToElement(element: any) {
 
 // 解析错误堆栈
 export function parseStackFrames(error: Error) {
+  if (!error) {
+    return {}
+  }
   const { stack } = error
   // 正则表达式，用以解析堆栈split后得到的字符串
   const FULL_MATCH =

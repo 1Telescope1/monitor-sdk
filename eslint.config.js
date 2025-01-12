@@ -64,6 +64,7 @@ module.exports = [
         Worker: "readonly",
         URLSearchParams: "readonly" ,
         TextEncoder: "readonly",
+        Blob: "readonly"
       }
     },
     plugins: {
