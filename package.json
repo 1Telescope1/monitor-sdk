@@ -1,5 +1,5 @@
 {
-  "name": "@telescope/monitor-sdk",
+  "name": "@web-tracke/monitor",
   "version": "1.0.0",
   "description": "A lightweight JavaScript SDK for monitoring web application performance and errors.",
   "author": "telescope <2298908190@qq.com>",
@@ -22,7 +22,9 @@
     "performance",
     "error-tracking"
   ],
-  "main": "index.js",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib/**",
     "README.md",
