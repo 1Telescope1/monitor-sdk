@@ -74,7 +74,7 @@ export class Behavior {
 
   // 初始化 RCR 路由跳转的获取以及返回
   initRouteChange = (): void => {
-    const oldDate = Date.now()
+    let oldDate = Date.now()
     const handler = (e: Event) => {
       // 记录到行为记录追踪
       const behavior: RouterChangeType = {
@@ -85,7 +85,7 @@ export class Behavior {
         timestamp: new Date().getTime(),
         pageTime: Date.now() - oldDate
       }
-
+      oldDate = Date.now()
       this.breadcrumbs.push(behavior)
     }
     proxyHash(handler)

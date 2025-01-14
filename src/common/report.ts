@@ -1,6 +1,6 @@
 import { getConfig } from './config'
 import { addCache, getCache, clearCache } from './cache'
-import { isObjectSize } from './utils'
+import { deepClone, isObjectSize } from './utils'
 
 const originalOpen = XMLHttpRequest.prototype.open
 const originalSend = XMLHttpRequest.prototype.send
@@ -35,7 +35,7 @@ const sendServe = (reportData: any) => {
     sendType
   }
   const jsonData = JSON.stringify(reportData)
-  const response = JSON.parse(jsonData)
+  const response = deepClone(reportData)
   config.reportBefore && config.reportBefore(response.data)
   sendTraceServer(jsonData)
     .then(() => {
