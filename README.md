@@ -78,10 +78,9 @@ monitorSDK.Exception()
 在vue2中
 ```js
 // main.ts
-import App from './App.vue'
+import Vue from 'vue'
 import monitorSDK from '@web-tracke/monitor'
 
-const app = createApp(App)
 const options = {}
 monitorSDK.init(options)
 

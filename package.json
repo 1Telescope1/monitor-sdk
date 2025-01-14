@@ -1,6 +1,6 @@
 {
   "name": "@web-tracke/monitor",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A lightweight JavaScript SDK for monitoring web application performance and errors.",
   "author": "telescope <2298908190@qq.com>",
   "license": "ISC",
